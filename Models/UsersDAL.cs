@@ -133,7 +133,7 @@ namespace ECommWeb.Models
         public int AddUser(Users user)
         {
             int result = 0;
-            string qry = "insert into Users values(@UserName,@Password,@Email,@Mobile,@Gender)";
+            string qry = "insert into Users values(@UserName,@Password,@Email,@Mobile,@Gender,@LoggedIn,@KeepLoggedIn,@IsSupplier,@Role)";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@UserName", user.UserName);
             cmd.Parameters.AddWithValue("@Password", user.Password);
@@ -141,6 +141,10 @@ namespace ECommWeb.Models
 
             cmd.Parameters.AddWithValue("@Mobile", user.Mobile);
             cmd.Parameters.AddWithValue("@Gender", user.Gender);
+            cmd.Parameters.AddWithValue("@LoggedIn","Yes");
+            cmd.Parameters.AddWithValue("@KeepLoggedIn", true);
+            cmd.Parameters.AddWithValue("@IsSupplier", true);
+            cmd.Parameters.AddWithValue("@Role", "Customer");
 
             con.Open();
             result = cmd.ExecuteNonQuery();

@@ -20,5 +20,14 @@ namespace ECommWeb.Models
         public string Company { get; set; }
         [Required]
         public string Country { get; set; }
+
+       
+        public int Category_ID { get; set; }
+
+
+        public int Stock_Quantity { get; set; }
+
+
+
     }
 }

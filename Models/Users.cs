@@ -3,6 +3,7 @@ namespace ECommWeb.Models
 {
     public class Users
     {
+        [Key]
         [ScaffoldColumn(false)]
         public int Id { get; set; }
         [Required]
@@ -24,5 +25,7 @@ namespace ECommWeb.Models
         public bool KeepLoggedIn { get; set; }
 
         public bool IsSupplier { get; set; }
+
+        public string Role { get; set; }
     }
 }

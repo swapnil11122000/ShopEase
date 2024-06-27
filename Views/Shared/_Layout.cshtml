@@ -36,11 +36,11 @@
                  
                     @if (User.Claims.Any(c => c.Type == "Role" && c.Value == "Supplier"))
                     {
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Supplier">Become Supplier</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendor" asp-action="Index">Vendor</a>
                     }
                     @if (!Context.User.Identity.IsAuthenticated)
                     {
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Supplier">Become Supplier</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendor" asp-action="Index">Vendor</a>
                     }
                     <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="CartIndex">My Cart</a>
                     @if(!Context.User.Identity.IsAuthenticated){
