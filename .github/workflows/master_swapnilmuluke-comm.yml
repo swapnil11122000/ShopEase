@@ -35,23 +35,23 @@ jobs:
           path: '/published/**'
 
   deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  runs-on: windows-latest
+  needs: build
+  environment:
+    name: 'Production'
+    url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: ASP-app
+  steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v3
+      with:
+        name: ASP-app
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'SwapnilMulukE-Comm'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BABBD805116045DFA74D3B8DE530835B }}
-          package: .
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'SwapnilMulukE-Comm'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BABBD805116045DFA74D3B8DE530835B }}
+        package: .
