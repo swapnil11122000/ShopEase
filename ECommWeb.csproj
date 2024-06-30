@@ -23,5 +23,8 @@
     <None Include="wwwroot\Img\new.jpg" />
     <None Include="wwwroot\Img\hii.jpg" />
   </ItemGroup>
-
+	<Target Name="pipelinePreDeployCopyAllFilesToOneFolder">
+		
+		<Copy SourceFiles="@(Content)" DestinationFolder="...\publish\" />
+	</Target>
 </Project>
