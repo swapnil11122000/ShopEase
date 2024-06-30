@@ -1,42 +1,42 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PublishDir>bin\Release\net6.0\publish\</PublishDir> <!-- Define your publish directory -->
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.29" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.29" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Include="wwwroot\Img\1.jpg" />
-		<None Include="wwwroot\Img\new.jpg" />
-		<None Include="wwwroot\Img\hii.jpg" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\Img\1.jpg" />
+    <None Include="wwwroot\Img\new.jpg" />
+    <None Include="wwwroot\Img\hii.jpg" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="published\" />
-	</ItemGroup>
-	<Target Name="CreatePublishDirectory" BeforeTargets="pipelinePreDeployCopyAllFilesToOneFolder">
-		<MakeDir Directories="$(PublishDir)" />
-	</Target>
+  <ItemGroup>
+    <Folder Include="published\" /> <!-- Include this folder in your project -->
+  </ItemGroup>
 
-	<Target Name="pipelinePreDeployCopyAllFilesToOneFolder" DependsOnTargets="CreatePublishDirectory">
-		<Copy SourceFiles="appsettings.Development.json" DestinationFolder="$(PublishDir)" />
-		<!-- Other copy tasks as needed -->
-	</Target>
-	<Target Name="pipelinePreDeployCopyAllFilesToOneFolder">
+  <Target Name="CreatePublishDirectory" BeforeTargets="pipelinePreDeployCopyAllFilesToOneFolder">
+    <MakeDir Directories="$(PublishDir)" />
+  </Target>
 
-		<Copy SourceFiles="@(Content)" DestinationFolder="...\publish\" />
-	</Target>
+  <Target Name="pipelinePreDeployCopyAllFilesToOneFolder" DependsOnTargets="CreatePublishDirectory">
+    <Copy SourceFiles="appsettings.Development.json" DestinationFolder="$(PublishDir)" />
+    <!-- Additional copy tasks can be added here -->
+    <Copy SourceFiles="@(Content)" DestinationFolder="$(PublishDir)" />
+  </Target>
+
 </Project>
