@@ -1,0 +1,31 @@
+﻿@* @using System.Data.DataTable
+
+<table class="table table-gray table-striped" style="border: 2px solid black">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Short Text</th>
+            <th>Category</th>
+            <th>Available Quantity</th>
+            <th>Unit Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["Name"]</td>
+                <td>@row["ShortText"]</td>
+                <td>@row["Category"]</td>
+                <td>@row["Qty"]</td>
+                <td>@row["Price"]</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = row["Id"] }, new { @class = "btn btn-dark" })
+                    @Html.ActionLink("Add to Cart", "AddtoCart", new { id = row["Id"] }, new { @class = "btn btn-dark" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@

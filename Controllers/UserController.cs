@@ -7,17 +7,22 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace ECommWeb.Controllers
 
 {
     public class UserController : Controller
     {
         private readonly IConfiguration configuration;
+      
         UsersDAL db;
+        public readonly SignedInUser signedInUser;
         public UserController(IConfiguration configuration)
         {
             this.configuration = configuration;
             db = new UsersDAL(this.configuration);
+            signedInUser = new SignedInUser();
         }
 
 
@@ -48,60 +53,96 @@ namespace ECommWeb.Controllers
                 {
                     DataTable dt = db.GetUser(user.Email.ToString());
 
-                    int userId = Convert.ToInt32(dt.Rows[0]["Id"]);
-                   
+                    int userId = Convert.ToInt32(dt.Rows[0]["UserID"]);
+                          
                     HttpContext.Session.SetInt32("UserId", userId);
                     List<Claim> claims = new List<Claim>() {
                      new Claim(ClaimTypes.NameIdentifier,user.Email),
                      new Claim("Name", dt.Rows[0]["UserName"].ToString()),
-                     new Claim("Role",string.IsNullOrEmpty(dt.Rows[0]["Role"].ToString()) ? "Customer" : dt.Rows[0]["Role"].ToString())
-
+                     new Claim("Role",string.IsNullOrEmpty(dt.Rows[0]["Role"].ToString()) ? "Customer" : dt.Rows[0]["Role"].ToString())         
                 };
+                   
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    AuthenticationProperties properties = new AuthenticationProperties()
+                    {
+                        AllowRefresh = true,         
+                    };
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity), properties);
+                  
+                    if (!db.ValidateUserData(userId))
+                    {
+                        return RedirectToAction("Edit", "User", new { Id = userId });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+            else
+            {
+                Vendors vendors = new Vendors();
+                vendors.Email=user.Email;
+                bool IsVendorExist = db.IsVendorExists(vendors);
+                if (IsVendorExist)
+                {
+                    DataTable dt = db.GetVendor(vendors.Email.ToString());
+
+                    int VendorID = Convert.ToInt32(dt.Rows[0]["Vendor_ID"]);
+                   
+                    HttpContext.Session.SetInt32("UserId", VendorID);
+                    List<Claim> claims = new List<Claim>() {
+                     new Claim(ClaimTypes.NameIdentifier,vendors.Email),
+                     new Claim("Name", dt.Rows[0]["Vendor_Name"].ToString()),
+                     new Claim("Role","Supplier")
+                };
+
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
                         CookieAuthenticationDefaults.AuthenticationScheme);
 
                     AuthenticationProperties properties = new AuthenticationProperties()
                     {
                         AllowRefresh = true,
-                        IsPersistent = user.KeepLoggedIn
                     };
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity), properties);
-                    return RedirectToAction("Index", "Home");
+                    if (!db.ValidateData(VendorID))
+                    {
+                        return RedirectToAction("Edit", "Vendors",new {id=VendorID});
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+
                 }
-            }     
+            }
             ViewData["ValidateMessage"] = "User not found";
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        public IActionResult Edit(int Id)
+        {
+          
+            var Users =  db.GetUserByID(Id);
+          
+            return View(Users);
+        }
 
-        //public ActionResult Login(Users user)
-        //{
-        //    bool Exists = db.IsUserExists(user);
-        //    if (Exists)
-        //    {
-        //        bool SignedInSuccessfully = db.ValidateCredentials(user);
-        //        if (SignedInSuccessfully)
-        //        {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Users users)
+        {
+
+            int a = db.UpdateUser(users);
 
 
-        //            return RedirectToAction("Index","Product");
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Error = "Invalid credentials";
-        //            return View();
-        //        }
-        //    }
-        //    else
-        //    {
-
-        //        ViewBag.Error = "User does not exist";
-        //        return View();
-        //    }
-        //}
+            return RedirectToAction("Index", "Home");
+        }
 
 
         public ActionResult SignUp()
@@ -109,15 +150,38 @@ namespace ECommWeb.Controllers
             return View();
         }
 
-        // POST: ProductController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SignUp(Users user)
         {
-            int res = db.AddUser(user);
+            int res = 0;
+            if (user.Role==true)
+            {
+                Vendors vendors = new Vendors();
+                vendors.Vendor_Name=user.UserName;
+                vendors.Email=user.Email;
+                vendors.Password=user.Password;
+                res=db.AddVendor(vendors);
+            }
+            else
+            {
+                 res = db.AddUser(user);
+            }
+           
 
-            return RedirectToAction("Login", "User");
+            if (res > 0)
+            {
+                TempData["SuccessMessage"] = "Account created successfully. Please login.";
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                TempData["AlertMessage"] = "Failed to sign up. Please try again.";
+                return RedirectToAction("SignUp", "User"); 
+            }
         }
+
 
         [Authorize]
         public JsonResult GetDevInfo()

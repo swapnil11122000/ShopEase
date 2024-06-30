@@ -4,17 +4,27 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@* old create *@
 
-<h1>Index</h1>
+<body style="background-color:#adb5bd;">
+
+
+<h1>Vendors</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+  @*   <a asp-action="Create">Create New</a> *@
 </p>
-<table class="table">
+<table class="table" style="border:2px solid black">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Vendor_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address2)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -23,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.Phone_Number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th></th>
         </tr>
@@ -35,20 +45,28 @@
                 @Html.DisplayFor(modelItem => item.Vendor_Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Address1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone_Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Vendor_ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Vendor_ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Vendor_ID">Delete</a>
+               @*  <a asp-action="Edit" asp-route-id="@item.Vendor_ID">Edit</a> | *@
+                        <a asp-action="Details" class="btn btn-dark" asp-route-id="@item.Vendor_ID">Details</a> |
+               @*  <a asp-action="Delete" asp-route-id="@item.Vendor_ID">Delete</a> *@
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+</body>

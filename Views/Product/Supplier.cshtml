@@ -15,18 +15,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+           @*  <th>
                 @Html.DisplayNameFor(model => model.Category)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
+          @*   <th>
                 @Html.DisplayNameFor(model => model.Company)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Country)
-            </th>
+            </th> *@
             <th></th>
         </tr>
     </thead>
@@ -36,22 +36,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+           @*  <td>
                 @Html.DisplayFor(modelItem => item.Category)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
+          @*   <td>
                 @Html.DisplayFor(modelItem => item.Company)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
-            </td>
+            </td> *@
             <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id }, new { @class = "btn btn-dark" }) 
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.ProductID }, new { @class = "btn btn-dark" }) 
 @*                    @Html.ActionLink("Details", "Details", new { id=item.Id  }, new { @class = "btn btn-dark" }) 
-*@                    @Html.ActionLink("Delete", "Delete", new { id=item.Id  }, new { @class = "btn btn-dark" })
+*@                    @Html.ActionLink("Delete", "Delete", new { id=item.ProductID  }, new { @class = "btn btn-dark" })
                        
             </td>
         </tr>

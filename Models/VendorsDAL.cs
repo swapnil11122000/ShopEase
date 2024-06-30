@@ -1,5 +1,6 @@
 ﻿using ECommWeb.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace ECommWeb.Models
 {
@@ -30,7 +31,7 @@ namespace ECommWeb.Models
             result=_context.SaveChanges();
             return result;
         }
-
+       
         public int UpdateVendor(Vendors vendors)
         {
             int result = 0;
@@ -40,10 +41,17 @@ namespace ECommWeb.Models
                 res.Vendor_Name = vendors.Vendor_Name;
                 res.Phone_Number = vendors.Phone_Number;
                 res.Email = vendors.Email;
-                res.Address = vendors.Address;
-              
+                res.Address1 = vendors.Address1;
+                res.Address2 = vendors.Address2;
+
                 result = _context.SaveChanges();
             }
+            return result;
+        }
+        public DataTable GetVendorProducts()
+        {
+            DataTable result = new DataTable();
+
             return result;
         }
         public int DeleteVendor(int vendorID)

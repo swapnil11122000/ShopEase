@@ -4,7 +4,7 @@ namespace ECommWeb.Models
 {
     public class Category
     {
-        [Key]
+        [Key]   
         [ScaffoldColumn(false)]
         public int CategoryID { get; set; }
         [Required]

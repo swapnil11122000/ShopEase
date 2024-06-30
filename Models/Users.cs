@@ -5,7 +5,7 @@ namespace ECommWeb.Models
     {
         [Key]
         [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public int UserID { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
@@ -14,18 +14,15 @@ namespace ECommWeb.Models
         [Required]
         [EmailAddress]
         public  string Email { get; set; }
-        [Required]
-        
+               
         public int Mobile { get; set; }
-        [Required]
+       
         public string Gender { get; set; }
 
-        public string LoggedIn { get; set; }
+        public string Address { get; set; }
+      
+        public bool Role {  get; set; }
 
-        public bool KeepLoggedIn { get; set; }
-
-        public bool IsSupplier { get; set; }
-
-        public string Role { get; set; }
+        public bool IsActive {  get; set; }
     }
 }

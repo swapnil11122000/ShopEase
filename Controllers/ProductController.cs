@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ECommWeb.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Configuration;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommWeb.Controllers
 
@@ -11,17 +12,17 @@ namespace ECommWeb.Controllers
     [Authorize]
     public class ProductController : Controller
     {
-        private readonly IConfiguration configuration;
+
         private readonly ApplicationDbContext applicationDbContext;
-         ProductDAL db;
-       
+        ProductDAL db;
+
         public ProductController(ApplicationDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
-            db= new ProductDAL(applicationDbContext);
+            db = new ProductDAL(applicationDbContext);
         }
-       
-       
+
+
         // GET: ProductController
         //display all products
         public ActionResult Index()
@@ -44,10 +45,10 @@ namespace ECommWeb.Controllers
             return View(model);
         }
 
-      
+
         public IActionResult Search(string product)
         {
-            var model=db.SearchProductByName(product);
+            var model = db.SearchProductByName(product);
             return View(model);
         }
         // GET: ProductController/Details/5
@@ -60,32 +61,42 @@ namespace ECommWeb.Controllers
 
         public ActionResult AddtoCart(int Id)
         {
-
-           
             int userid = (int)HttpContext.Session.GetInt32("UserId");
-            Cart cart=new Cart();
-            cart.UserID= userid;
+            Cart cart = new Cart();
+            cart.UserID = userid;
             cart.ProductID = Id;
-             db.InsertItemToCart(cart);
-            return RedirectToAction("CartIndex", "Cart");
+            db.InsertItemToCart(cart);
+            return RedirectToAction("Index", "Carts");
 
         }
-
-        // GET: ProductController/Create
-        //add new product
 
         public ActionResult Create()
         {
+            var categories = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "1", Text = "Clothing" },
+        new SelectListItem { Value = "2", Text = "Electronics" },
+        new SelectListItem { Value = "3", Text = "Automobile" },
+         new SelectListItem { Value = "4", Text = "Fashion" },
+          new SelectListItem { Value = "5", Text = "Appliances" },
+           new SelectListItem { Value = "6", Text = "Grocery" },
+            new SelectListItem { Value = "7", Text = "Home & Furniture" },
+             new SelectListItem { Value = "8", Text = "Toys" },
+
+    };
+
+            ViewBag.Categories = new SelectList(categories, "Value", "Text");
             return View();
         }
 
-        // POST: ProductController/Create
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product prod)
         {
             try
             {
+                prod.Vendor_ID = (int)HttpContext.Session.GetInt32("UserId");
                 int res = db.AddProduct(prod);
                 if (res > 0)
                 {

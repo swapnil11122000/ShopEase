@@ -13,7 +13,7 @@
 
         <div class="col-auto">
             <label class="visually-hidden">Search Product</label>
-            <input type="text" id="txtSearchProd" class="form-control" name="product" placeholder="Search Product">
+            <input type="text" id="txtSearchProd" class="form-control" name="product" placeholder="Search Product by Name">
         </div>
         <div class="col-auto">
             <button type="submit" id="btnSearch" class="btn btn-dark mb-3">Search </button>
@@ -23,20 +23,19 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    Product Name
+                </th>
+            
+                <th>
+                    Category
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category)
+                   Available Quantity
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    Short Text
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Company)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Country)
-                </th>
+            
                 <th></th>
             </tr>
         </thead>
@@ -48,24 +47,23 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category)
+                        @item.Category.Name
+                    </td>
+                 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock_Quantity)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(modelItem => item.Short_Text)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Company)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country)
-                    </td>
+               
                     <td>
                         @* @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |*@
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-dark" })
+                        @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @class = "btn btn-dark" })
                         @* @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
                     <a asp-action="Create">Add Product</a>*@
                         @*  <button type="submit" class="btn btn-dark" onclick="Add">Buy</button> *@
-                        @Html.ActionLink("Add to Cart", "AddtoCart", new { id = item.Id }, new { @class = "btn btn-dark" })
+                        @Html.ActionLink("Add to Cart", "AddtoCart", new { id = item.ProductID }, new { @class = "btn btn-dark" })
                         @*   <button type="submit" class="btn btn-dark" onclick="cart">Add to Cart</button> *@
 
 

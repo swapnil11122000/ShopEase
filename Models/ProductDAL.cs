@@ -1,4 +1,5 @@
 ﻿using ECommWeb.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace ECommWeb.Models
@@ -14,16 +15,17 @@ namespace ECommWeb.Models
 
 
 
+
         // display all
         public List<Product> GetAllProducts()
         {
 
-            return db.Products.ToList();
+            return db.Products.Include(p => p.Category).ToList();
         }
         // display by id
         public Product GetProductById(int Id)
         {
-            var result = db.Products.Where(x => x.Id == Id).FirstOrDefault();
+            var result = db.Products.Where(x => x.ProductID == Id).FirstOrDefault();
             return result;
         }
         public Product SearchProductByName(string product)
@@ -35,9 +37,11 @@ namespace ECommWeb.Models
 
         // add record
         public int AddProduct(Product prod)
-        {
+        {     
             var result = 0;
             db.Products.Add(prod);
+          
+           
             result = db.SaveChanges();
             return result;
         }
@@ -45,14 +49,13 @@ namespace ECommWeb.Models
         public int UpdateProduct(Product prod)
         {
             int result = 0;
-            var res = db.Products.Where(x => x.Id == prod.Id).FirstOrDefault();
+            var res = db.Products.Where(x => x.ProductID == prod.ProductID).FirstOrDefault();
             if (res != null)
             {
                 res.Name = prod.Name;
-                res.Category = prod.Category;
+              
                 res.Price = prod.Price;
-                res.Company = prod.Company;
-                res.Country = prod.Country;
+              
                 result = db.SaveChanges();
             }
             return result;
@@ -61,7 +64,7 @@ namespace ECommWeb.Models
         public int DeleteProduct(int Id)
         {
             int res = 0;
-            var result = db.Products.Where(x => x.Id == Id).FirstOrDefault();
+            var result = db.Products.Where(x => x.ProductID == Id).FirstOrDefault();
             if (result != null)
             {
                 db.Products.Remove(result);
