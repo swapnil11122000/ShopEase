@@ -7,34 +7,34 @@ using Microsoft.EntityFrameworkCore;
 namespace ECommWeb.Controllers
 {
     [Authorize]
-    public class VendorsController : Controller
+    public class VendorController : Controller
     {
         private readonly ApplicationDbContext _context;
-        VendorsDAL db;
+        VendorDAL db;
 
-        public VendorsController(ApplicationDbContext context)
+        public VendorController(ApplicationDbContext context)
         {
             this._context= context;
-            db=new VendorsDAL(_context);
+            db=new VendorDAL(_context);
         }
         public  IActionResult Index()
         {
-            List<Vendors> Vendors = db.GetAllVendors(); ;
+            List<Vendor> Vendor = db.GetAllVendor(); ;
 
            
-            return View(Vendors);
+            return View(Vendor);
         }
         public IActionResult Details(int id)
         {
 
-            var vendors = GetVendorById(id);
+            var Vendor = GetVendorById(id);
             var partialGridData = db.GetVendorProducts();
             ViewBag.PartialGridData = partialGridData;
-            return View(vendors);
+            return View(Vendor);
         }
-        public Vendors GetVendorById(int Id)
+        public Vendor GetVendorById(int Id)
         {
-            var result = _context.Vendors.Where(x => x.Vendor_ID == Id).FirstOrDefault();
+            var result = _context.Vendor.Where(x => x.VendorID == Id).FirstOrDefault();
             return result;
         }
         public IActionResult Create()
@@ -43,79 +43,79 @@ namespace ECommWeb.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vendors vendors)
+        public IActionResult Create(Vendor Vendor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(vendors);
+                _context.Add(Vendor);
                 _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vendors);
+            return View(Vendor);
         }
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.Vendors == null)
+            if (id == null || _context.Vendor == null)
             {
                 return NotFound();
             }
 
-            var vendors = await _context.Vendors.FindAsync(id);
-            if (vendors == null)
+            var Vendor = await _context.Vendor.FindAsync(id);
+            if (Vendor == null)
             {
                 return NotFound();
             }
-            return View(vendors);
+            return View(Vendor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Edit( Vendors vendors)
+        public  IActionResult Edit( Vendor Vendor)
         {
 
-            int a = db.UpdateVendor(vendors);
+            int a = db.UpdateVendor(Vendor);
 
 
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Vendors == null)
+            if (id == null || _context.Vendor == null)
             {
                 return NotFound();
             }
 
-            var vendors = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.Vendor_ID == id);
-            if (vendors == null)
+            var Vendor = await _context.Vendor
+                .FirstOrDefaultAsync(m => m.VendorID == id);
+            if (Vendor == null)
             {
                 return NotFound();
             }
 
-            return View(vendors);
+            return View(Vendor);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Vendors == null)
+            if (_context.Vendor == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Vendors'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Vendor'  is null.");
             }
-            var vendors = await _context.Vendors.FindAsync(id);
-            if (vendors != null)
+            var Vendor = await _context.Vendor.FindAsync(id);
+            if (Vendor != null)
             {
-                _context.Vendors.Remove(vendors);
+                _context.Vendor.Remove(Vendor);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VendorsExists(int id)
+        private bool VendorExists(int id)
         {
-          return (_context.Vendors?.Any(e => e.Vendor_ID == id)).GetValueOrDefault();
+          return (_context.Vendor?.Any(e => e.VendorID == id)).GetValueOrDefault();
         }
     }
 }

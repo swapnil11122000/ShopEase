@@ -4,45 +4,45 @@ using System.Data;
 
 namespace ECommWeb.Models
 {
-    public class VendorsDAL
+    public class VendorDAL
     {
         private readonly ApplicationDbContext _context;
 
-        public VendorsDAL(ApplicationDbContext _Context)
+        public VendorDAL(ApplicationDbContext _Context)
         {
               this._context=_Context;
         }
 
-        public List<Vendors> GetAllVendors()
+        public List<Vendor> GetAllVendor()
         {
-            return _context.Vendors.ToList();
+            return _context.Vendor.ToList();
         }
 
-        public Vendors GetVendorByID(int id)
+        public Vendor GetVendorByID(int id)
         {
-            var result=_context.Vendors.FirstOrDefault(x => x.Vendor_ID == id);
+            var result=_context.Vendor.FirstOrDefault(x => x.VendorID == id);
             return result;
         }
 
-        public int AddVendor(Vendors vendors)
+        public int AddVendor(Vendor Vendor)
         {
             int result=0;
-            _context.Vendors.Add(vendors);
+            _context.Vendor.Add(Vendor);
             result=_context.SaveChanges();
             return result;
         }
        
-        public int UpdateVendor(Vendors vendors)
+        public int UpdateVendor(Vendor Vendor)
         {
             int result = 0;
-            var res = _context.Vendors.Where(x => x.Vendor_ID == vendors.Vendor_ID).FirstOrDefault();
+            var res = _context.Vendor.Where(x => x.VendorID == Vendor.VendorID).FirstOrDefault();
             if (res != null)
             {
-                res.Vendor_Name = vendors.Vendor_Name;
-                res.Phone_Number = vendors.Phone_Number;
-                res.Email = vendors.Email;
-                res.Address1 = vendors.Address1;
-                res.Address2 = vendors.Address2;
+                res.ContactPerson = Vendor.ContactPerson;
+                res.Phone = Vendor.Phone;
+                res.Email = Vendor.Email;
+                res.AddressID = Vendor.AddressID;
+              
 
                 result = _context.SaveChanges();
             }
@@ -57,10 +57,10 @@ namespace ECommWeb.Models
         public int DeleteVendor(int vendorID)
         {
             int res=0;
-            var result= _context.Vendors.Where(x=>x.Vendor_ID==vendorID).FirstOrDefault();
+            var result= _context.Vendor.Where(x=>x.VendorID==vendorID).FirstOrDefault();
             if(result != null)
             {
-                _context.Vendors.Remove(result);
+                _context.Vendor.Remove(result);
                 res= _context.SaveChanges();
             }
             return res;

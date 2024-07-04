@@ -3,16 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommWeb.Models
 {
-    [Table("Cart")]
-    
-    public class Cart
+    public class OrderItem
     {
         [Key]
-        public int CartID { get; set; } 
+        public int OrderItemsID { get; set; } 
 
         [Required]
-        [ForeignKey("User")]
-        public int UserID { get; set; } 
+        [ForeignKey("Order")]
+        public int OrderID { get; set; } 
 
         [Required]
         [ForeignKey("Product")]
@@ -25,21 +23,12 @@ namespace ECommWeb.Models
         public int? DiscountID { get; set; } 
 
         [Required]
-        public DateTime CreatedDate { get; set; } 
-
-        public DateTime? UpdatedDate { get; set; } 
-
-        [Required]
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal TotalPrice { get; set; } 
+        public decimal TotalPrice { get; set; }
 
-        
-        public User User { get; set; }
+       
+        public Order Order { get; set; }
         public Product Product { get; set; }
         public Discount Discount { get; set; }
     }
-
-
-
-    
 }

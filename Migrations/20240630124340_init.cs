@@ -39,7 +39,7 @@ namespace ECommWeb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -55,11 +55,11 @@ namespace ECommWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vendors",
+                name: "Vendor",
                 columns: table => new
                 {
                     Vendor_ID = table.Column<int>(type: "int", nullable: false)
@@ -74,7 +74,7 @@ namespace ECommWeb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vendors", x => x.Vendor_ID);
+                    table.PrimaryKey("PK_Vendor", x => x.Vendor_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,10 +120,10 @@ namespace ECommWeb.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
 
             migrationBuilder.DropTable(
-                name: "Vendors");
+                name: "Vendor");
 
             migrationBuilder.DropTable(
                 name: "Category");

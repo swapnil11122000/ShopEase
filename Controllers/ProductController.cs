@@ -96,7 +96,7 @@ namespace ECommWeb.Controllers
         {
             try
             {
-                prod.Vendor_ID = (int)HttpContext.Session.GetInt32("UserId");
+                prod.ProductID = (int)HttpContext.Session.GetInt32("UserId");
                 int res = db.AddProduct(prod);
                 if (res > 0)
                 {

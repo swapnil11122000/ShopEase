@@ -16,19 +16,19 @@ namespace ECommWeb.Controllers
     {
         private readonly IConfiguration configuration;
       
-        UsersDAL db;
+        UserDAL db;
         public readonly SignedInUser signedInUser;
         public UserController(IConfiguration configuration)
         {
             this.configuration = configuration;
-            db = new UsersDAL(this.configuration);
+            db = new UserDAL(this.configuration);
             signedInUser = new SignedInUser();
         }
 
 
         public ActionResult Index()
         {
-            List<Users> model = db.GetAllUsers();
+            List<User> model = db.GetAllUser();
             return View(model);
         }
         public IActionResult Login()
@@ -43,7 +43,7 @@ namespace ECommWeb.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(Users user)
+        public async Task<IActionResult> Login(User user)
         {
             bool IsUserExists=db.IsUserExists(user);
             if (IsUserExists)
@@ -84,18 +84,18 @@ namespace ECommWeb.Controllers
             }
             else
             {
-                Vendors vendors = new Vendors();
-                vendors.Email=user.Email;
-                bool IsVendorExist = db.IsVendorExists(vendors);
+                Vendor Vendor = new Vendor();
+                Vendor.Email=user.Email;
+                bool IsVendorExist = db.IsVendorExists(Vendor);
                 if (IsVendorExist)
                 {
-                    DataTable dt = db.GetVendor(vendors.Email.ToString());
+                    DataTable dt = db.GetVendor(Vendor.Email.ToString());
 
                     int VendorID = Convert.ToInt32(dt.Rows[0]["Vendor_ID"]);
                    
                     HttpContext.Session.SetInt32("UserId", VendorID);
                     List<Claim> claims = new List<Claim>() {
-                     new Claim(ClaimTypes.NameIdentifier,vendors.Email),
+                     new Claim(ClaimTypes.NameIdentifier,Vendor.Email),
                      new Claim("Name", dt.Rows[0]["Vendor_Name"].ToString()),
                      new Claim("Role","Supplier")
                 };
@@ -111,7 +111,7 @@ namespace ECommWeb.Controllers
                         new ClaimsPrincipal(claimsIdentity), properties);
                     if (!db.ValidateData(VendorID))
                     {
-                        return RedirectToAction("Edit", "Vendors",new {id=VendorID});
+                        return RedirectToAction("Edit", "Vendor",new {id=VendorID});
                     }
                     else
                     {
@@ -128,17 +128,17 @@ namespace ECommWeb.Controllers
         public IActionResult Edit(int Id)
         {
           
-            var Users =  db.GetUserByID(Id);
+            var User =  db.GetUserByID(Id);
           
-            return View(Users);
+            return View(User);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Users users)
+        public IActionResult Edit(User User)
         {
 
-            int a = db.UpdateUser(users);
+            int a = db.UpdateUser(User);
 
 
             return RedirectToAction("Index", "Home");
@@ -153,16 +153,16 @@ namespace ECommWeb.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp(Users user)
+        public ActionResult SignUp(User user)
         {
             int res = 0;
-            if (user.Role==true)
+            if (user.ProfileID==1)
             {
-                Vendors vendors = new Vendors();
-                vendors.Vendor_Name=user.UserName;
-                vendors.Email=user.Email;
-                vendors.Password=user.Password;
-                res=db.AddVendor(vendors);
+                Vendor Vendor = new Vendor();
+                Vendor.ContactPerson=user.FirstName;
+                Vendor.Email=user.Email;
+                Vendor.Password=user.Password;
+                res=db.AddVendor(Vendor);
             }
             else
             {

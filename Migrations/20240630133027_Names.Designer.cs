@@ -109,7 +109,7 @@ namespace ECommWeb.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("ECommWeb.Models.Users", b =>
+            modelBuilder.Entity("ECommWeb.Models.User", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -148,10 +148,10 @@ namespace ECommWeb.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("ECommWeb.Models.Vendors", b =>
+            modelBuilder.Entity("ECommWeb.Models.Vendor", b =>
                 {
                     b.Property<int>("Vendor_ID")
                         .ValueGeneratedOnAdd()
@@ -187,7 +187,7 @@ namespace ECommWeb.Migrations
 
                     b.HasKey("Vendor_ID");
 
-                    b.ToTable("Vendors");
+                    b.ToTable("Vendor");
                 });
 
             modelBuilder.Entity("ECommWeb.Models.Product", b =>

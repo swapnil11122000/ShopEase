@@ -37,7 +37,7 @@
                     <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                     @if (User.Claims.Any(c => c.Type == "Role" && c.Value == "Supplier"))
                     {
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendors" asp-action="Index">Vendors</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendor" asp-action="Index">Vendor</a>
                     }   
                     @if (User.Claims.Any(c => c.Type == "Role" && c.Value == "Supplier"))
                     {
@@ -45,7 +45,7 @@
                     }
                     @if (!Context.User.Identity.IsAuthenticated)
                     {
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendors" asp-action="Index">Become a Seller</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Vendor" asp-action="Index">Become a Seller</a>
                     }
                   
                     @if(!Context.User.Identity.IsAuthenticated){

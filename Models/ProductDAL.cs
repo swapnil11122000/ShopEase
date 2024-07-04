@@ -30,7 +30,7 @@ namespace ECommWeb.Models
         }
         public Product SearchProductByName(string product)
         {
-            var result = db.Products.Where(x => x.Name == product).FirstOrDefault();
+            var result = db.Products.Where(x => x.ProductName == product).FirstOrDefault();
             return result;
         }
 
@@ -52,9 +52,9 @@ namespace ECommWeb.Models
             var res = db.Products.Where(x => x.ProductID == prod.ProductID).FirstOrDefault();
             if (res != null)
             {
-                res.Name = prod.Name;
+                res.ProductName = prod.ProductName;
               
-                res.Price = prod.Price;
+                res.UnitPrice = prod.UnitPrice;
               
                 result = db.SaveChanges();
             }

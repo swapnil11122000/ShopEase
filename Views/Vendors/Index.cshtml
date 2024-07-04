@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ECommWeb.Models.Vendors>
+﻿@model IEnumerable<ECommWeb.Models.Vendor>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +9,7 @@
 <body style="background-color:#adb5bd;">
 
 
-<h1>Vendors</h1>
+<h1>Vendor</h1>
 
 <p>
   @*   <a asp-action="Create">Create New</a> *@
@@ -18,22 +18,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Vendor_Name)
+                @Html.DisplayNameFor(model => model.CompanyName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address1)
+                @Html.DisplayNameFor(model => model.AddressID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address2)
+                @Html.DisplayNameFor(model => model.AddressID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone_Number)
+                @Html.DisplayNameFor(model => model.Phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsActive)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -42,26 +42,26 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Vendor_Name)
+                @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address1)
+                @Html.DisplayFor(modelItem => item.AddressID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address2)
+                @Html.DisplayFor(modelItem => item.AddressID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone_Number)
+                @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                @*  <a asp-action="Edit" asp-route-id="@item.Vendor_ID">Edit</a> | *@
-                        <a asp-action="Details" class="btn btn-dark" asp-route-id="@item.Vendor_ID">Details</a> |
+                        <a asp-action="Details" class="btn btn-dark" asp-route-id="@item.VendorID">Details</a> |
                @*  <a asp-action="Delete" asp-route-id="@item.Vendor_ID">Delete</a> *@
             </td>
         </tr>

@@ -1,4 +1,4 @@
-﻿@model ECommWeb.Models.Users
+﻿@model ECommWeb.Models.User
 
 @{
     ViewData["Title"] = "SignUp";
@@ -11,9 +11,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <h3 class="form-signup-heading" style="margin-bottom: 10px;">Create Account</h3>
-            <label asp-for="UserName"  class="sr-only">UserName</label>
-            <input asp-for="UserName" type="text"  class="form-control" style="position: relative; font-size: 16px; height: auto; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;" placeholder="UserName" required autofocus>
-            <span asp-validation-for="UserName" class="text-danger"></span>
+            <label asp-for="FirstName"  class="sr-only">UserName</label>
+            <input asp-for="FirstName" type="text"  class="form-control" style="position: relative; font-size: 16px; height: auto; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;" placeholder="UserName" required autofocus>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
 
             <label asp-for="Email" class="sr-only">Email address</label>
             <input asp-for="Email" type="email" class="form-control" style="position: relative; font-size: 16px; height: auto; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;" placeholder="Email address" required>
@@ -25,7 +25,7 @@
 
             <div class="checkbox" style="margin-bottom: 10px;">
                 <label>
-                    <input type="checkbox" asp-for="Role"> Is Vendor.
+                    <input type="checkbox" asp-for="ProfileID"> Is Vendor.
                 </label>
             </div>
             

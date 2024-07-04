@@ -37,8 +37,8 @@
                                 <label class="control-label LabelClass">Product Name: </label>
                             </td>
                             <td>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <input asp-for="ProductName" class="form-control" />
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
                             </td>
                       
                             <td>
@@ -57,14 +57,14 @@
                                 <label class="control-label LabelClass">Available Quantity: </label>
                             </td>
                             <td>
-                                <input asp-for="Stock_Quantity" class="form-control" />
+                                <input asp-for="StockQuantity" class="form-control" />
                             </td>
                      
                             <td>
                                 <label class="control-label LabelClass">Unit Price: </label>
                             </td>
                             <td>
-                                <input asp-for="Price" class="form-control" />
+                                <input asp-for="UnitPrice" class="form-control" />
                             </td>
                            
 
@@ -76,7 +76,7 @@
                                 <label class="control-label LabelClass">Short Text: </label>
                             </td>
                             <td colspan="3">
-                                <input asp-for="Short_Text" class="form-control" />
+                                <input asp-for="Description" class="form-control" />
                             </td>
                         </tr>
                         <tr>
@@ -84,7 +84,7 @@
                                 <label class="control-label LabelClass">Long Text: </label>
                             </td>
                             <td colspan="3">
-                                <input asp-for="Long_Text" class="form-control" />
+                                <input asp-for="Description" class="form-control" />
                             </td>
                         </tr>
                         <tr>
@@ -92,14 +92,14 @@
                                 <label class="control-label LabelClass">Min Order Quantity: </label>
                             </td>
                             <td>
-                                <input asp-for="Min_Order_Qty" class="form-control" />
+                                <input asp-for="ImgUrl" class="form-control" />
                             </td>
                       
                             <td>
                                 <label class="control-label LabelClass">Is Active: </label>
                             </td>
                             <td>
-                                <input type="checkbox" asp-for="IsActive">
+                                <input type="checkbox" asp-for="Status">
                             </td>
                         </tr>
                     </table>

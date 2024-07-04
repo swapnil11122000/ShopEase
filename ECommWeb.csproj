@@ -23,10 +23,6 @@
 		<None Include="wwwroot\Img\new.jpg" />
 		<None Include="wwwroot\Img\hii.jpg" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="published\" />
-	</ItemGroup>
 	<Target Name="CreatePublishDirectory" BeforeTargets="pipelinePreDeployCopyAllFilesToOneFolder">
 		<MakeDir Directories="$(PublishDir)" />
 	</Target>

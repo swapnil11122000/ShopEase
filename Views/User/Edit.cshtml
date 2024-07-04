@@ -1,4 +1,4 @@
-﻿@model ECommWeb.Models.Users
+﻿@model ECommWeb.Models.User
 
 @{
     ViewData["Title"] = "Edit";
@@ -15,9 +15,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UserID" />
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group" style="display:none">
                 <label asp-for="Password" class="control-label" ></label>
@@ -46,12 +46,12 @@
             </div>
             <div class="form-group form-check" style="display:none">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Role" /> @Html.DisplayNameFor(model => model.Role)
+                    <input class="form-check-input" asp-for="Profile" /> @Html.DisplayNameFor(model => model.Profile)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
                 </label>
             </div>
             <div class="form-group">

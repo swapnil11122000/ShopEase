@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommWeb.Models
@@ -7,31 +8,49 @@ namespace ECommWeb.Models
     public class Product
     {
         [Key]
-        [ScaffoldColumn(false)]
-        public int ProductID { get; set; }
-        [Required]
-        public string Name { get; set; }
+        public int ProductID { get; set; } 
 
         [Required]
+        [MaxLength(150)]
+        public string ProductName { get; set; } 
+
+        [MaxLength(150)]
+        public string Description { get; set; } 
+
+        [MaxLength(150)]
+        public string ShortText { get; set; } 
+
+        [Required]
+        [Column(TypeName = "decimal(10, 2)")]
+        public decimal UnitPrice { get; set; } 
+
+        [Required]
+        [ForeignKey("Category")]
+        public int CategoryID { get; set; } 
+        [Required]
+        [ForeignKey("Vendor")]
+        public int VendorID { get; set; } 
+
+        public int StockQuantity { get; set; } 
+
+        [MaxLength(100)]
        
-        public int CategoryID { get; set; }
+        public string BarCode { get; set; } 
+
+        [MaxLength(100)]
+        public string ImgUrl { get; set; } 
 
         [Required]
-        public int Stock_Quantity { get; set; }
+        public bool Status { get; set; } 
 
         [Required]
-        public int Price { get; set; }
-        [Required]
-        public string Short_Text { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public string  Long_Text { get; set; }
-        public int Min_Order_Qty { get; set; }
+        public DateTime? UpdatedDate { get; set; } 
 
-        public bool IsActive { get; set; }
-        [Required]
-        public int Vendor_ID { get; set; }
-
-        public virtual Category Category { get; set; }
+        
+        public Category Category { get; set; }
+        public Vendor Vendor { get; set; }
 
     }
 }

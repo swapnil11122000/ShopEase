@@ -11,9 +11,9 @@ namespace ECommWeb.Entities
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
 
-        public DbSet<Users> Users { get; set; }
+        public DbSet<User> User { get; set; }
 
-        public DbSet<Vendors> Vendors { get; set; }
+        public DbSet<Vendor> Vendor { get; set; }
 
         //public DbSet<Role> Roles { get; set; }
 

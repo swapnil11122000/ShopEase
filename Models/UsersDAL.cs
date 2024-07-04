@@ -4,23 +4,23 @@ using System.Data.SqlClient;
 
 namespace ECommWeb.Models
 {
-    public class UsersDAL
+    public class UserDAL
     {
         SqlConnection con;
         SqlCommand cmd;
         SqlDataReader dr;
         private readonly IConfiguration configuration;
-        public UsersDAL(IConfiguration configuration)
+        public UserDAL(IConfiguration configuration)
         {
             this.configuration = configuration;
             con = new SqlConnection(this.configuration.GetConnectionString("SqlConnection"));
         }
 
 
-        public List<Users> GetAllUsers()
+        public List<User> GetAllUser()
         {
-            List<Users> list = new List<Users>();
-            string qry = "select * from Users";
+            List<User> list = new List<User>();
+            string qry = "select * from User";
             cmd = new SqlCommand(qry, con);
             con.Open();
             dr = cmd.ExecuteReader();
@@ -28,13 +28,14 @@ namespace ECommWeb.Models
             {
                 while (dr.Read())
                 {
-                    Users user = new Users();
+                    User user = new User();
                     user.UserID = Convert.ToInt32(dr["UserID"]);
-                    user.UserName = dr["UserName"].ToString();
+                    user.FirstName = dr["FirstName"].ToString();
+                    user.LastName = dr["LastName"].ToString();
                     user.Password = dr["Password"].ToString();
                     user.Email = dr["Email"].ToString();
 
-                    user.Mobile = Convert.ToInt32(dr["Mobile"]);
+                    user.Mobile = (dr["Mobile"]).ToString();
                     user.Gender = dr["Gender"].ToString();
 
                     list.Add(user);
@@ -43,41 +44,13 @@ namespace ECommWeb.Models
             con.Close();
             return list;
         }
-        //public Users GetUserByID(int id)
-        //{
-
-        //    Users users = new Users();
-
-        //    string qry = "select * from users where Id=@UserID";
-        //    cmd = new SqlCommand(qry, con);
-        //    cmd.Parameters.AddWithValue("@UserID", id);
-        //    con.Open();
-        //    SqlDataReader reader = cmd.ExecuteReader();
-
-        //    con.Close();
-        //    reader.Read();
-        //    if (reader.HasRows)
-        //    {
-        //        users.Id = Convert.ToInt32(reader["Id"]);
-        //        users.Email = reader["Email"].ToString();
-        //        users.UserName = reader["UserName"].ToString();
-        //        users.Password = reader["Password"].ToString();
-        //        users.Mobile = Convert.ToInt32(reader["Mobile"]);
-        //        users.Gender = reader["Gender"].ToString();
-        //        users.Address = reader["Address"].ToString();
-        //        users.Role = Convert.ToBoolean(reader["Role"]);
-        //        users.IsActive = Convert.ToBoolean(reader["IsActive"]);
-        //    }
-        //    reader.Close();
-        //    return users;
-
-        //}
-        public Users GetUserByID(int id)
+       
+        public User GetUserByID(int id)
         {
-            Users user = null; // Initialize as null to handle cases where user is not found
+            User user = null; // Initialize as null to handle cases where user is not found
 
            
-                string qry = "SELECT * FROM users WHERE UserID = @UserID";
+                string qry = "SELECT * FROM User WHERE UserID = @UserID";
                 SqlCommand cmd = new SqlCommand(qry, con);
                 cmd.Parameters.AddWithValue("@UserID", id);
 
@@ -88,22 +61,22 @@ namespace ECommWeb.Models
                 {
                     reader.Read(); // Read the first (and presumably only) row
 
-                    user = new Users
+                    user = new User
                     {
                         UserID = Convert.ToInt32(reader["UserID"]),
                         Email = reader["Email"].ToString(),
-                        UserName = reader["UserName"].ToString(),
+                        FirstName = reader["FirstName"].ToString(),
+                        LastName= reader["LastName"].ToString(),
                         Password = reader["Password"].ToString(),
-                        Mobile = Convert.ToInt32(reader["Mobile"]),
-                        Gender = reader["Gender"].ToString(),
-                        Address = reader["Address"].ToString(),
-                        Role = Convert.ToBoolean(reader["Role"]),
-                        IsActive = Convert.ToBoolean(reader["IsActive"])
+                        Mobile = reader["Mobile"].ToString(),
+                        Status= Convert.ToBoolean(reader["Status"].ToString()),
+
+
+
                     };
                 }
 
-                reader.Close(); // Close the reader explicitly
-            
+                reader.Close(); 
 
             return user;
         }
@@ -111,7 +84,7 @@ namespace ECommWeb.Models
         public DataTable GetUser(string Email)
         {
             DataTable dataTable = new DataTable();
-            string qry = "select * from users where Email=@Email";
+            string qry = "select * from User where Email=@Email";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@Email", Email);
             con.Open();
@@ -125,7 +98,7 @@ namespace ECommWeb.Models
         public DataTable GetVendor(string Email)
         {
             DataTable dataTable = new DataTable();
-            string qry = "select * from Vendors where Email=@Email";
+            string qry = "select * from Vendor where Email=@Email";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@Email", Email);
             con.Open();
@@ -136,11 +109,11 @@ namespace ECommWeb.Models
 
             return dataTable;
         }
-        public bool IsUserExists(Users user)
+        public bool IsUserExists(User user)
         {
             bool exists = false;
 
-            string qry = "SELECT COUNT(*) FROM users WHERE Email = @Email";
+            string qry = "SELECT COUNT(*) FROM User WHERE Email = @Email";
 
             using (SqlConnection con = new SqlConnection(this.configuration.GetConnectionString("SqlConnection")))
             {
@@ -166,17 +139,17 @@ namespace ECommWeb.Models
 
             return exists;
         }
-        public bool IsVendorExists(Vendors vendors)
+        public bool IsVendorExists(Vendor Vendor)
         {
             bool exists = false;
 
-            string qry = "SELECT COUNT(*) FROM Vendors WHERE Email = @Email";
+            string qry = "SELECT COUNT(*) FROM Vendor WHERE Email = @Email";
 
             using (SqlConnection con = new SqlConnection(this.configuration.GetConnectionString("SqlConnection")))
             {
                 using (SqlCommand cmd = new SqlCommand(qry, con))
                 {
-                    cmd.Parameters.AddWithValue("@Email", vendors.Email);
+                    cmd.Parameters.AddWithValue("@Email", Vendor.Email);
                     try
                     {
                         con.Open();
@@ -198,11 +171,11 @@ namespace ECommWeb.Models
         }
 
 
-        public bool ValidateCredentials(Users user)
+        public bool ValidateCredentials(User user)
         {
             bool Validate = false;
 
-            string qry = "select * from users where Email=@Email and Password=@Password";
+            string qry = "select * from User where Email=@Email and Password=@Password";
 
             using (SqlConnection con = new SqlConnection(this.configuration.GetConnectionString("SqlConnection")))
             {
@@ -238,18 +211,18 @@ namespace ECommWeb.Models
             return Validate;
 
         }
-        public bool ValidateVendorCredentials(Vendors vendors)
+        public bool ValidateVendorCredentials(Vendor Vendor)
         {
             bool Validate = false;
 
-            string qry = "select * from Vendors where Email=@Email and Password=@Password";
+            string qry = "select * from Vendor where Email=@Email and Password=@Password";
 
             using (SqlConnection con = new SqlConnection(this.configuration.GetConnectionString("SqlConnection")))
             {
                 using (SqlCommand cmd = new SqlCommand(qry, con))
                 {
-                    cmd.Parameters.AddWithValue("@Email", vendors.Email);
-                    cmd.Parameters.AddWithValue("@Password", vendors.Password);
+                    cmd.Parameters.AddWithValue("@Email", Vendor.Email);
+                    cmd.Parameters.AddWithValue("@Password", Vendor.Password);
                     try
                     {
                         con.Open();
@@ -282,7 +255,7 @@ namespace ECommWeb.Models
         {
             bool Present = true;
             DataTable dataTable = new DataTable();
-            string qry = "select * from Vendors where Vendor_ID=@UserID";
+            string qry = "select * from Vendor where Vendor_ID=@UserID";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@UserID", UserID);
             con.Open();
@@ -311,7 +284,7 @@ namespace ECommWeb.Models
         {
             bool Present = true;
             DataTable dataTable = new DataTable();
-            string qry = "select * from Users where UserID=@UserID";
+            string qry = "select * from User where UserID=@UserID";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@UserID", UserID);
             con.Open();
@@ -336,24 +309,16 @@ namespace ECommWeb.Models
             }
             return Present;
         }
-        public int AddVendor(Vendors vendor)
+        public int AddVendor(Vendor vendor)
         {
             int result = 0;
-            string qry = "insert into Vendors values(@Vendor_Name,@Address1,@Address2,@Email,@Password,@Phone_Number,@IsActive)";
+            string qry = "insert into Vendor values(@Vendor_Name,@Address1,@Address2,@Email,@Password,@Phone_Number,@IsActive)";
             cmd = new SqlCommand(qry, con);
-            cmd.Parameters.AddWithValue("@Vendor_Name", vendor.Vendor_Name);
-            cmd.Parameters.AddWithValue("@Address1", vendor.Address1 ?? "");
-            cmd.Parameters.AddWithValue("@Address2", vendor.Address2 ?? "");
+            cmd.Parameters.AddWithValue("@VendorName", vendor.ContactPerson);
+            cmd.Parameters.AddWithValue("@Address1", vendor.AddressID);
+           
 
-            if (vendor.Phone_Number != 0)
-            {
-                cmd.Parameters.AddWithValue("@Phone_Number", vendor.Phone_Number);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@Phone_Number", 0);
-            }
-
+         
             cmd.Parameters.AddWithValue("@Password", vendor.Password);
             cmd.Parameters.AddWithValue("@IsActive", true);
             cmd.Parameters.AddWithValue("@Email", vendor.Email);
@@ -365,12 +330,12 @@ namespace ECommWeb.Models
             con.Close();
             return result;
         }
-        public int AddUser(Users user)
+        public int AddUser(User user)
         {
             int result = 0;
-            string qry = "insert into Users values(@UserName,@Password,@Email,@Mobile,@Gender,@Role,@Address,@IsActive)";
+            string qry = "insert into User values(@UserName,@Password,@Email,@Mobile,@Gender,@Role,@Address,@IsActive)";
             cmd = new SqlCommand(qry, con);
-            cmd.Parameters.AddWithValue("@UserName", user.UserName);
+            cmd.Parameters.AddWithValue("@UserName", user.FirstName);
             cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@Email", user.Email);
 
@@ -393,7 +358,7 @@ namespace ECommWeb.Models
             cmd.Parameters.AddWithValue("@IsActive", true);
 
             cmd.Parameters.AddWithValue("@Role",0);
-            cmd.Parameters.AddWithValue("@Address", user.Address ?? "");
+            cmd.Parameters.AddWithValue("@Address", user.AddressID);
 
             con.Open();
             result = cmd.ExecuteNonQuery();
@@ -401,20 +366,20 @@ namespace ECommWeb.Models
             return result;
         }
         //update record
-        public int UpdateUser(Users user)
+        public int UpdateUser(User user)
         {
             int result = 0;
-            string qry = "update Users set UserName=@UserName,Password=@Password,Email=@Email,Mobile=@Mobile,Gender=@Gender,Address=@Address,Role=@Role,IsActive=@IsActive where UserID=@Id";
+            string qry = "update User set UserName=@UserName,Password=@Password,Email=@Email,Mobile=@Mobile,Gender=@Gender,Address=@Address,Role=@Role,IsActive=@IsActive where UserID=@Id";
             cmd = new SqlCommand(qry, con);
-            cmd.Parameters.AddWithValue("@UserName", user.UserName);
+            cmd.Parameters.AddWithValue("@UserName", user.FirstName);
             cmd.Parameters.AddWithValue("@Password", user.Password);
             cmd.Parameters.AddWithValue("@Email", user.Email);
 
             cmd.Parameters.AddWithValue("@Mobile", user.Mobile);
             cmd.Parameters.AddWithValue("@Gender", user.Gender);
             cmd.Parameters.AddWithValue("@Address", user.Address);
-            cmd.Parameters.AddWithValue("@Role", user.Role);
-            cmd.Parameters.AddWithValue("@IsActive", user.IsActive);
+            cmd.Parameters.AddWithValue("@Role", user.ProfileID);
+            cmd.Parameters.AddWithValue("@IsActive", user.Status);
             cmd.Parameters.AddWithValue("@Id", user.UserID);
             con.Open();
             result = cmd.ExecuteNonQuery();
@@ -425,7 +390,7 @@ namespace ECommWeb.Models
         public int DeleteUser(int Id)
         {
             int result = 0;
-            string qry = "delete from Users where UserID=@Id";
+            string qry = "delete from User where UserID=@Id";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@Id", Id);
             con.Open();

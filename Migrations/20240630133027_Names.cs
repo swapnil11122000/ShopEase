@@ -12,7 +12,7 @@ namespace ECommWeb.Migrations
         {
             migrationBuilder.RenameColumn(
                 name: "Id",
-                table: "Users",
+                table: "User",
                 newName: "UserID");
 
             migrationBuilder.RenameColumn(
@@ -26,7 +26,7 @@ namespace ECommWeb.Migrations
         {
             migrationBuilder.RenameColumn(
                 name: "UserID",
-                table: "Users",
+                table: "User",
                 newName: "Id");
 
             migrationBuilder.RenameColumn(
