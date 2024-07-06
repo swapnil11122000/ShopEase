@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommWeb.Controllers
 {
-    [Authorize]
+  
     public class VendorController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -116,6 +116,29 @@ namespace ECommWeb.Controllers
         private bool VendorExists(int id)
         {
           return (_context.Vendor?.Any(e => e.VendorID == id)).GetValueOrDefault();
+        }
+
+        public ActionResult SellProducts()
+        {
+            return View("SellProducts");
+        }
+        public ActionResult ExistingProduct()
+        {
+            return View("ExistingProduct");
+        }
+        public ActionResult VendorProfile()
+        {
+            var vendor = _context.Vendor
+                           .Include(v => v.Product) 
+                           .FirstOrDefault(v => v.VendorID == 1);
+
+            if (vendor == null)
+            {
+                return NotFound(); // Handle case where vendor is not found
+            }
+
+           
+            return View("VendorProfile",vendor);
         }
     }
 }

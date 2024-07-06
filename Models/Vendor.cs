@@ -42,13 +42,14 @@ namespace ECommWeb.Models
 
         public DateTime? UpdatedDate { get; set; }
         [Required]
-        public int Status { get; set; }
+        public bool Status { get; set; }
 
         public Address Address { get; set; }
 
         
         public User User { get; set; }
 
+        public ICollection<Product> Product { get; set; }
 
 
     }

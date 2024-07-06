@@ -1,0 +1,121 @@
+﻿@model ECommWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Existing Product";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2>My Profile</h2>
+                    <div>
+                        <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-inline">
+                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        </form>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Product Name -->
+                                <div class="form-group">
+                                    <label asp-for="ProductName">Product Name</label>
+                                    <input asp-for="ProductName" class="form-control" />
+                                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group">
+                                    <label asp-for="Description">Description</label>
+                                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+
+                                <!-- Short Text -->
+                                <div class="form-group">
+                                    <label asp-for="ShortText">Short Text</label>
+                                    <input asp-for="ShortText" class="form-control" />
+                                    <span asp-validation-for="ShortText" class="text-danger"></span>
+                                </div>
+
+                                <!-- Unit Price -->
+                                <div class="form-group">
+                                    <label asp-for="UnitPrice">Unit Price</label>
+                                    <input asp-for="UnitPrice" class="form-control" />
+                                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="form-group">
+                                    <label asp-for="CategoryID">Category</label>
+                                    <select asp-for="CategoryID" asp-items="@ViewBag.Categories" class="form-control">
+                                        <option value="">-- Select Category --</option>
+                                    </select>
+                                    <span asp-validation-for="CategoryID" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- Vendor -->
+                                <div class="form-group">
+                                    <label asp-for="VendorID">Vendor</label>
+                                    <select asp-for="VendorID" asp-items="@ViewBag.Vendors" class="form-control">
+                                        <option value="">-- Select Vendor --</option>
+                                    </select>
+                                    <span asp-validation-for="VendorID" class="text-danger"></span>
+                                </div>
+
+                                <!-- Stock Quantity -->
+                                <div class="form-group">
+                                    <label asp-for="StockQuantity">Stock Quantity</label>
+                                    <input asp-for="StockQuantity" class="form-control" />
+                                    <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                                </div>
+
+                                <!-- Barcode -->
+                                <div class="form-group">
+                                    <label asp-for="BarCode">Barcode</label>
+                                    <input asp-for="BarCode" class="form-control" />
+                                    <span asp-validation-for="BarCode" class="text-danger"></span>
+                                </div>
+
+                                <!-- Image URL -->
+                                <div class="form-group">
+                                    <label asp-for="ImgUrl">Image URL</label>
+                                    <input asp-for="ImgUrl" class="form-control" />
+                                    <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="form-group">
+                                    <label asp-for="Status">Status</label>
+                                    <div>
+                                        <input type="checkbox" asp-for="Status" />
+                                        <label class="form-check-label ml-2">@Html.DisplayNameFor(model => model.Status)</label>
+                                    </div>
+                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                </div>
+
+                                <!-- Created Date -->
+                                <div class="form-group">
+                                    <label asp-for="CreatedDate">Created Date</label>
+                                    <input asp-for="CreatedDate" class="form-control" disabled />
+                                </div>
+
+                                <!-- Updated Date -->
+                                <div class="form-group">
+                                    <label asp-for="UpdatedDate">Updated Date</label>
+                                    <input asp-for="UpdatedDate" class="form-control" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -196,6 +196,11 @@ namespace ECommWeb.Controllers
         //    return Redirect("http://localhost:51430/");
         //}
 
+        public ActionResult Profile()
+        {
+            return View("Profile");
+        }
+
 
     }
 }

@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace ECommWeb.Controllers
 {
     [Authorize]
-    public class CartsController : Controller
+    public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CartsController(ApplicationDbContext context)
+        public CartController(ApplicationDbContext context)
         {
             _context = context;
         }
