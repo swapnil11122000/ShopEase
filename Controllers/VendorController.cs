@@ -129,27 +129,15 @@ namespace ECommWeb.Controllers
 
             ViewBag.Categories = new SelectList(categories, "Value", "Text");
 
-            var MyVendors = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "1", Text = "Vendor1" },
-        new SelectListItem { Value = "2", Text = "Vendor2" },
-        new SelectListItem { Value = "3", Text = "Vendor3" },
-         new SelectListItem { Value = "4", Text = "Vendor4" },
-          new SelectListItem { Value = "5", Text = "Vendor5" },
-           new SelectListItem { Value = "6", Text = "Vendor6" },
-            new SelectListItem { Value = "7", Text = "Vendor7" },
-             new SelectListItem { Value = "8", Text = "Vendor8" },
-
-    };
-
-            ViewBag.MyVendors = new SelectList(MyVendors, "Value", "Text");
+         
             return View("SellProducts");
         }
 
-        public IActionResult AddProduct(Product product)
+            public IActionResult AddProduct(Product product)
         {
             product.CreatedDate = DateTime.Now;
             product.UpdatedDate = DateTime.Now;
+            product.VendorID= (int)HttpContext.Session.GetInt32("UserId");
             _context.Products.Add(product);
             _context.SaveChanges();
 

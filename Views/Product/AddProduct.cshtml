@@ -1,26 +1,24 @@
 ﻿@model ECommWeb.Models.Product
 
 @{
-    ViewData["Title"] = "Add New Product";
+    ViewData["Title"] = "Existing Product";
 }
 <body style="background-color:#adb5bd;">
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <form asp-action="AddProduct" asp-controller="Vendor" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h2>Sell Products</h2>
-                            <div>
-
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2>My Profile</h2>
+                        <div>
+                            <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-inline">
                                 <button type="submit" class="btn btn-dark mr-2">Submit</button>
-
-                                <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
-                            </div>
+                            </form>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
                         </div>
-                        <div class="card-body">
-
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                             <div class="row">
                                 <div class="col-md-6">
                                     <!-- Product Name -->
@@ -63,20 +61,20 @@
 
                                 <div class="col-md-6">
                                     <!-- Vendor -->
-                                @*     <div class="form-group">
+                                    <div class="form-group">
                                         <label asp-for="VendorID">Vendor</label>
-                                        <select asp-for="VendorID" asp-items="@ViewBag.MyVendors" class="form-control">
+                                        <select asp-for="VendorID" asp-items="@ViewBag.Vendors" class="form-control">
                                             <option value="">-- Select Vendor --</option>
                                         </select>
                                         <span asp-validation-for="VendorID" class="text-danger"></span>
-                                    </div> *@
+                                    </div>
 
                                     <!-- Stock Quantity -->
-                                    <div class="form-group">
+                                  @*   <div class="form-group">
                                         <label asp-for="StockQuantity">Stock Quantity</label>
                                         <input asp-for="StockQuantity" class="form-control" />
                                         <span asp-validation-for="StockQuantity" class="text-danger"></span>
-                                    </div>
+                                    </div> *@
 
                                     <!-- Barcode -->
                                     <div class="form-group">
@@ -103,24 +101,22 @@
                                     </div>
 
                                     <!-- Created Date -->
-                                    <div class="form-group">
+                               @*      <div class="form-group">
                                         <label asp-for="CreatedDate">Created Date</label>
-                                        <input asp-for="CreatedDate" class="form-control"  />
+                                        <input asp-for="CreatedDate" class="form-control" disabled />
                                     </div>
 
                                     <!-- Updated Date -->
                                     <div class="form-group">
                                         <label asp-for="UpdatedDate">Updated Date</label>
-                                        <input asp-for="UpdatedDate" class="form-control"  />
-                                    </div>
+                                        <input asp-for="UpdatedDate" class="form-control" disabled />
+                                    </div> *@
                                 </div>
                             </div>
-
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-
 </body>

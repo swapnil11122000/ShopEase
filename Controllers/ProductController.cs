@@ -5,6 +5,8 @@ using ECommWeb.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System.Configuration;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommWeb.Controllers
 
@@ -49,6 +51,7 @@ namespace ECommWeb.Controllers
         public IActionResult Search(string product)
         {
             var model = db.SearchProductByName(product);
+            ViewBag.SearchProduct = product;
             return View(model);
         }
         // GET: ProductController/Details/5
@@ -59,16 +62,29 @@ namespace ECommWeb.Controllers
             return View(model);
         }
 
-        public ActionResult AddtoCart(int Id)
+        public IActionResult AddtoCart(int Id)
         {
-            int userid = (int)HttpContext.Session.GetInt32("UserId");
-            Cart cart = new Cart();
-            cart.UserID = userid;
-            cart.ProductID = Id;
-            db.InsertItemToCart(cart);
-            return RedirectToAction("Index", "Carts");
+            //int userid = (int)HttpContext.Session.GetInt32("UserId");
+            //Cart cart = new Cart();
+            //cart.UserID = userid;
+            //cart.ProductID = Id;
+            //db.InsertItemToCart(cart);
+            var product = db.GetProductById(Id);
+                        
+
+           
+
+            return View("~/Views/Order/AddProductOrder.cshtml",product);
+            // return RedirectToAction("AddProductOrder", "Product");
 
         }
+
+      
+     
+        //public ActionResult AddProductOrder()
+        //{   
+        //    return View("~/Views/Order/AddProductOrder.cshtml");
+        //}
 
         public ActionResult Create()
         {

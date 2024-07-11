@@ -50,6 +50,9 @@ namespace ECommWeb.Models
 
         
         public Category Category { get; set; }
+
+
+        public OrderItem OrderItem { get; set; }
         //public Vendor Vendor { get; set; }
 
     }

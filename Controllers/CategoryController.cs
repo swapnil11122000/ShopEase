@@ -16,15 +16,15 @@ namespace ECommWeb.Controllers
             _context = context;
         }
 
-        
+
         public async Task<IActionResult> Index()
         {
-              return _context.Category != null ? 
-                          View(await _context.Category.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Category'  is null.");
+            return _context.Category != null ?
+                        View(await _context.Category.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Category'  is null.");
         }
 
-      
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Category == null)
@@ -42,27 +42,27 @@ namespace ECommWeb.Controllers
             return View(category);
         }
 
-       
+
         public IActionResult Create()
         {
             return View();
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description")] Category category)
+        public IActionResult Create(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(category);
+            category.CreatedDate = DateTime.Now;
+            category.CreatedBy = (int)HttpContext.Session.GetInt32("UserId");
+            _context.Add(category);
+            _context.SaveChangesAsync();
+            return RedirectToAction("Index","Category");
+
+
         }
 
-       
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Category == null)
@@ -78,7 +78,7 @@ namespace ECommWeb.Controllers
             return View(category);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Description")] Category category)
@@ -111,7 +111,7 @@ namespace ECommWeb.Controllers
             return View(category);
         }
 
-       
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Category == null)
@@ -129,7 +129,7 @@ namespace ECommWeb.Controllers
             return View(category);
         }
 
-       
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -143,14 +143,14 @@ namespace ECommWeb.Controllers
             {
                 _context.Category.Remove(category);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-          return (_context.Category?.Any(e => e.CategoryID == id)).GetValueOrDefault();
+            return (_context.Category?.Any(e => e.CategoryID == id)).GetValueOrDefault();
         }
     }
 }

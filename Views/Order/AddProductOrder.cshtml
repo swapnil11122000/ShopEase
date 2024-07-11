@@ -1,0 +1,178 @@
+﻿@model ECommWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Existing Product";
+}
+<body style="background-color:#adb5bd;">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <form asp-action="PlaceOrder" asp-controller="Order" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Confirm Order</h2>
+                            <div>
+                              
+                                    <button type="submit" class="btn btn-dark mr-2">Add To Cart</button>
+                               
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Product Name -->
+                                    <div class="form-group">
+                                        <label asp-for="ProductName">Product Name</label>
+                                        <input asp-for="ProductName" class="form-control" readonly />
+                                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="form-group">
+                                        <label asp-for="Description">Description</label>
+                                        <textarea asp-for="Description" class="form-control" rows="3" readonly></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- Short Text -->
+                                    <div class="form-group">
+                                        <label asp-for="ShortText">Short Text</label>
+                                        <input asp-for="ShortText" class="form-control" readonly />
+                                        <span asp-validation-for="ShortText" class="text-danger"></span>
+                                    </div>
+
+                                    <!-- Unit Price -->
+                                    <div class="form-group">
+                                        <label asp-for="UnitPrice">Unit Price</label>
+                                        <input id="UnitPrice" asp-for="UnitPrice" class="form-control"  readonly/>
+                                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+
+
+
+
+                                    <div class="form-group">
+                                        <label asp-for="BarCode">Barcode</label>
+                                        <input asp-for="BarCode" class="form-control" readonly />
+                                        <span asp-validation-for="BarCode" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="ImgUrl">Image URL</label>
+                                        <input asp-for="ImgUrl" class="form-control" readonly />
+                                        <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="StockQuantity">Available Quantity</label>
+                                        <input id="StockQuantity" asp-for="StockQuantity" class="form-control" readonly/>
+                                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="OrderItem.Quantity">Quantity</label>
+                                        <input id="Quantity" asp-for="OrderItem.Quantity" class="form-control" />
+                                        <span asp-validation-for="OrderItem.Quantity" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="OrderItem.TotalPrice">Total Price</label>
+                                        <input id="TotalPrice" asp-for="OrderItem.TotalPrice" class="form-control" readonly/>
+                                        <span asp-validation-for="OrderItem.TotalPrice" class="text-danger"></span>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script>
+           
+            function updateStockQuantity() {
+                var stockQuantity = parseInt($('#StockQuantity').val()) || 0; 
+                var orderQuantity = parseInt($('#Quantity').val()) || 0; 
+
+                var remainingQuantity = stockQuantity - orderQuantity; 
+
+               
+                $('#StockQuantity').val(remainingQuantity);
+            }
+
+          
+            $('#Quantity').on('input', function () {
+                updateStockQuantity();
+            });
+
+          
+            $(document).ready(function () {
+                updateStockQuantity();
+            });
+     
+         
+            function updateTotalPrice() {
+                var quantity = parseInt($('#Quantity').val()) || 0; 
+                var unitPrice = parseFloat($('#UnitPrice').val()) || 0; 
+
+                var totalPrice = quantity * unitPrice; 
+
+                
+                $('#TotalPrice').val(totalPrice.toFixed(2));
+            }
+
+         
+            $('#Quantity').on('input', function () {
+                updateTotalPrice();
+            });
+
+          
+            $(document).ready(function () {
+                updateTotalPrice(); 
+            });
+     
+          
+            function validateQuantity() {
+                var quantity = parseInt($('#Quantity').val()) || 0; 
+                var stockQuantity = parseInt($('#StockQuantity').val()) || 0; 
+
+                if (quantity <= 0) {
+                    $('#Quantity').val(''); // Clear invalid input
+                    $('#Quantity').siblings('.text-danger').text('Quantity must be greater than 0.'); 
+                    return false;
+                } else if (quantity > stockQuantity) {
+                    $('#Quantity').val(''); // Clear invalid input
+                    $('#Quantity').siblings('.text-danger').text('Quantity cannot be greater than Available Quantity (' + stockQuantity + ').'); 
+                    return false;
+                } else {
+                    $('#Quantity').siblings('.text-danger').text(''); // Clear error message
+                    return true;
+                }
+            }
+
+          
+            $('#Quantity').on('input', function () {
+                validateQuantity(); 
+            });
+
+        
+            $(document).ready(function () {
+                validateQuantity(); 
+            });
+        </script>
+    }
+
+
+
+</body>

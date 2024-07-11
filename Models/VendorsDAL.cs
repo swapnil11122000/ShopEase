@@ -31,8 +31,17 @@ namespace ECommWeb.Models
                         {
                             VendorID = vendor.VendorID,
                             CompanyName = vendor.CompanyName,
+                            ContactPerson=vendor.ContactPerson,
+                            Email = vendor.Email,
+                            Password = vendor.Password,
+                            Phone=vendor.Password,
+                            GSTINID=vendor.GSTINID,
+                            CreatedDate=vendor.CreatedDate,
+                            UpdatedDate=vendor.UpdatedDate,
+                            AddressID=vendor.AddressID,
                             Product = _context.Products.Where(p => p.VendorID == vendor.VendorID).ToList()
                         };
+
 
             return query.FirstOrDefault();
         }

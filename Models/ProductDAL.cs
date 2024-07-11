@@ -24,10 +24,30 @@ namespace ECommWeb.Models
             var result = db.Products.Where(x => x.ProductID == Id).FirstOrDefault();
             return result;
         }
-        public Product SearchProductByName(string product)
+        public List<Product> SearchProductByName(string product)
         {
-            var result = db.Products.Where(x => x.ProductName == product).FirstOrDefault();
-            return result;
+            var query = from p in db.Products
+                        join c in db.Category on p.CategoryID equals c.CategoryID
+                        where p.ProductName.Contains(product)
+                        select new Product
+                        {
+                           
+                            ProductID = p.ProductID,
+                            ProductName = p.ProductName,
+                         UnitPrice = p.UnitPrice,
+                          ImgUrl = p.ImgUrl,
+                          VendorID = p.VendorID,
+                          CategoryID = p.CategoryID,
+                            Category = new Category
+                            {
+                                CategoryID = c.CategoryID,
+                                CategoryName = c.CategoryName
+                                
+                            }
+                          
+                        };
+
+            return query.ToList();
         }
 
 
