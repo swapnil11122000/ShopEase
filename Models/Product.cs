@@ -25,10 +25,10 @@ namespace ECommWeb.Models
         public decimal UnitPrice { get; set; } 
 
         [Required]
-        [ForeignKey("Category")]
+   
         public int CategoryID { get; set; } 
         [Required]
-        [ForeignKey("Vendor")]
+     
         public int VendorID { get; set; } 
 
         public int StockQuantity { get; set; } 
@@ -50,7 +50,7 @@ namespace ECommWeb.Models
 
         
         public Category Category { get; set; }
-        public Vendor Vendor { get; set; }
+        //public Vendor Vendor { get; set; }
 
     }
 }

@@ -23,12 +23,15 @@
             <input asp-for="Password" type="password"  class="form-control" style="position: relative; font-size: 16px; height: auto; padding: 10px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;" placeholder="Password" required>
             <span asp-validation-for="Password" class="text-danger"></span>
 
-            <div class="checkbox" style="margin-bottom: 10px;">
+          @*   <div class="checkbox" style="margin-bottom: 10px;">
                 <label>
                     <input type="checkbox" asp-for="Status"> Is Vendor.
                 </label>
-            </div>
-            
+            </div> *@
+            <select asp-for="ProfileID"  class="form-control">
+                <option value="0">Customer</option>
+                <option value="1">Vendor</option>
+            </select>
 
 
             <br />

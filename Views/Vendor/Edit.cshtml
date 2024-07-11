@@ -34,11 +34,12 @@
                     <input asp-for="AddressID" class="form-control" />
                     <span asp-validation-for="AddressID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                    <label asp-for="AddressID" class="control-label"></label>
-                    <input asp-for="AddressID" class="form-control" />
-                    <span asp-validation-for="AddressID" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="GSTINID" class="control-label"></label>
+                    <input asp-for="GSTINID" class="form-control" />
+                    <span asp-validation-for="GSTINID" class="text-danger"></span>
+                </div>
+           
           
             <div class="form-group">
                 <label asp-for="Phone" class="control-label"></label>
@@ -57,9 +58,9 @@
     </div>
 </div>
 
-<div>
+@* <div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div> *@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

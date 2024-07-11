@@ -58,8 +58,8 @@ namespace ECommWeb.Controllers
                     HttpContext.Session.SetInt32("UserId", userId);
                     List<Claim> claims = new List<Claim>() {
                      new Claim(ClaimTypes.NameIdentifier,user.Email),
-                     new Claim("Name", dt.Rows[0]["UserName"].ToString()),
-                     new Claim("Role",string.IsNullOrEmpty(dt.Rows[0]["Role"].ToString()) ? "Customer" : dt.Rows[0]["Role"].ToString())         
+                     new Claim("Name", dt.Rows[0]["FirstName"].ToString()),
+                     new Claim("Role",string.IsNullOrEmpty(dt.Rows[0]["ProfileID"].ToString()) ? "0" : dt.Rows[0]["ProfileID"].ToString())         
                 };
                    
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
@@ -91,12 +91,12 @@ namespace ECommWeb.Controllers
                 {
                     DataTable dt = db.GetVendor(Vendor.Email.ToString());
 
-                    int VendorID = Convert.ToInt32(dt.Rows[0]["Vendor_ID"]);
+                    int VendorID = Convert.ToInt32(dt.Rows[0]["VendorID"]);
                    
                     HttpContext.Session.SetInt32("UserId", VendorID);
                     List<Claim> claims = new List<Claim>() {
                      new Claim(ClaimTypes.NameIdentifier,Vendor.Email),
-                     new Claim("Name", dt.Rows[0]["Vendor_Name"].ToString()),
+                     new Claim("Name", dt.Rows[0]["ContactPerson"].ToString()),
                      new Claim("Role","Supplier")
                 };
 
@@ -112,6 +112,7 @@ namespace ECommWeb.Controllers
                     if (!db.ValidateData(VendorID))
                     {
                         return RedirectToAction("Edit", "Vendor",new {id=VendorID});
+                        //return RedirectToAction("Index", "Home");
                     }
                     else
                     {

@@ -9,17 +9,16 @@ namespace ECommWeb.Models
         public int OrderItemsID { get; set; } 
 
         [Required]
-        [ForeignKey("Order")]
+       
         public int OrderID { get; set; } 
 
         [Required]
-        [ForeignKey("Product")]
+      
         public int ProductID { get; set; } 
 
         [Required]
         public int Quantity { get; set; } 
 
-        [ForeignKey("Discount")]
         public int? DiscountID { get; set; } 
 
         [Required]

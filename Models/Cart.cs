@@ -11,17 +11,17 @@ namespace ECommWeb.Models
         public int CartID { get; set; } 
 
         [Required]
-        [ForeignKey("User")]
+     
         public int UserID { get; set; } 
 
         [Required]
-        [ForeignKey("Product")]
+     
         public int ProductID { get; set; } 
 
         [Required]
         public int Quantity { get; set; } 
 
-        [ForeignKey("Discount")]
+   
         public int? DiscountID { get; set; } 
 
         [Required]

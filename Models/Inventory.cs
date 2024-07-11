@@ -10,7 +10,7 @@ namespace ECommWeb.Models
         public int InventoryID { get; set; } 
 
         [Required]
-        [ForeignKey("Product")]
+
        
         public int ProductID { get; set; } 
 

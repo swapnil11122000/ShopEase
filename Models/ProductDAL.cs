@@ -13,16 +13,12 @@ namespace ECommWeb.Models
             this.db = db;
         }
 
-
-
-
-        // display all
         public List<Product> GetAllProducts()
         {
 
             return db.Products.Include(p => p.Category).ToList();
         }
-        // display by id
+      
         public Product GetProductById(int Id)
         {
             var result = db.Products.Where(x => x.ProductID == Id).FirstOrDefault();

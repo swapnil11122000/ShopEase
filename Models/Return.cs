@@ -8,7 +8,7 @@ namespace ECommWeb.Models
         [Key]
         public int ReturnID { get; set; } 
         [Required]
-        [ForeignKey("Order")]
+   
         public int OrderID { get; set; }
 
         [MaxLength(500)]

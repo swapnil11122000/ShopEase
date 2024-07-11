@@ -9,7 +9,7 @@ namespace ECommWeb.Models
         public int PaymentID { get; set; } 
 
         [Required]
-        [ForeignKey("Order")]
+
         public int OrderID { get; set; } 
 
         [Required]

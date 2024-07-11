@@ -1,7 +1,5 @@
 ﻿using ECommWeb.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
-
 namespace ECommWeb.Models
 {
     public class VendorDAL
@@ -24,6 +22,23 @@ namespace ECommWeb.Models
             return result;
         }
 
+      
+        public Vendor GetVend(int? ID) 
+        {
+            var query = from vendor in _context.Vendor
+                        where vendor.VendorID == ID
+                        select new Vendor
+                        {
+                            VendorID = vendor.VendorID,
+                            CompanyName = vendor.CompanyName,
+                            Product = _context.Products.Where(p => p.VendorID == vendor.VendorID).ToList()
+                        };
+
+            return query.FirstOrDefault();
+        }
+       
+
+
         public int AddVendor(Vendor Vendor)
         {
             int result=0;
@@ -42,7 +57,12 @@ namespace ECommWeb.Models
                 res.Phone = Vendor.Phone;
                 res.Email = Vendor.Email;
                 res.AddressID = Vendor.AddressID;
-              
+                res.CompanyName= Vendor.CompanyName;
+                res.Password= Vendor.Password;
+                res.GSTINID= Vendor.GSTINID;
+                res.CreatedDate=DateTime.Now;
+                res.UpdatedDate=DateTime.Now;
+                res.Status= Vendor.Status;
 
                 result = _context.SaveChanges();
             }

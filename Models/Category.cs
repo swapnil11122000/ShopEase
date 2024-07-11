@@ -15,13 +15,13 @@ namespace ECommWeb.Models
         [MaxLength(200)]
         public string Description { get; set; } 
 
-        [ForeignKey("User")]
+   
         public int CreatedBy { get; set; } 
 
         [Required]
         public DateTime CreatedDate { get; set; } 
 
-        public User User { get; set; }
+        //public User User { get; set; }
 
     }
 }

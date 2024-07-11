@@ -6,7 +6,7 @@ namespace ECommWeb.Models
     public class User
     {
         [Key]
-        [ScaffoldColumn(false)]
+        
         public int UserID { get; set; }
         [Required]
         [MaxLength(100)]
@@ -33,11 +33,11 @@ namespace ECommWeb.Models
         public DateTime LastLogin { get; set; }
 
         [Required]
-        [ForeignKey("Profile")]
+      
         public int ProfileID { get; set; }
 
         [Required]
-        [ForeignKey("Address")]
+    
         public int AddressID { get; set; }
 
         public Profile Profile { get; set; }

@@ -89,7 +89,7 @@ namespace ECommWeb.Controllers
             return View();
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product prod)
@@ -183,6 +183,6 @@ namespace ECommWeb.Controllers
             }
         }
 
-       
+
     }
 }

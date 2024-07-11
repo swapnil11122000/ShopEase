@@ -9,7 +9,7 @@ namespace ECommWeb.Models
         [Key]
         public int VendorID { get; set; } 
 
-        public int? UserID { get; set; } 
+        public int UserID { get; set; } 
 
         [Required]
         [MaxLength(200)]
@@ -32,7 +32,7 @@ namespace ECommWeb.Models
         public string Phone { get; set; } 
 
         [Required]
-        [ForeignKey("Address")]
+      
         public int AddressID { get; set; } 
         [Required]
         public int? GSTINID { get; set; } 

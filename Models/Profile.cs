@@ -16,7 +16,7 @@ namespace ECommWeb.Models
         public string Description { get; set; } 
 
         [Required]
-        [ForeignKey("User")]
+      
         public int CreatedBy { get; set; } 
 
         [Required]
