@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ECommWeb.Controllers
 
 {
-    [Authorize]
+   
     public class ProductController : Controller
     {
 
@@ -25,22 +25,14 @@ namespace ECommWeb.Controllers
         }
 
 
-        // GET: ProductController
-        //display all products
+      
         public ActionResult Index()
         {
             List<Product> model = db.GetAllProducts();
             return View(model);
         }
 
-        public ActionResult Login()
-        {
-            return View();
-        }
-        public ActionResult SignUp()
-        {
-            return View();
-        }
+        [Authorize]
         public ActionResult Supplier()
         {
             List<Product> model = db.GetAllProducts();
@@ -54,15 +46,14 @@ namespace ECommWeb.Controllers
             ViewBag.SearchProduct = product;
             return View(model);
         }
-        // GET: ProductController/Details/5
-        //display single product
+        [Authorize]
         public ActionResult Details(int Id)
         {
             var model = db.GetProductById(Id);
             return View(model);
         }
-
-        public IActionResult AddtoCart(int Id)
+        [Authorize]
+        public IActionResult AddOrder(int Id)
         {
             //int userid = (int)HttpContext.Session.GetInt32("UserId");
             //Cart cart = new Cart();
@@ -79,13 +70,9 @@ namespace ECommWeb.Controllers
 
         }
 
-      
-     
-        //public ActionResult AddProductOrder()
-        //{   
-        //    return View("~/Views/Order/AddProductOrder.cshtml");
-        //}
 
+
+        [Authorize]
         public ActionResult Create()
         {
             var categories = new List<SelectListItem>
@@ -132,14 +119,14 @@ namespace ECommWeb.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
+        [Authorize]
         public ActionResult Edit(int Id)
         {
             var model = db.GetProductById(Id);
             return View(model);
         }
 
-        // POST: ProductController/Edit/5
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Product prod)
@@ -165,7 +152,7 @@ namespace ECommWeb.Controllers
             }
         }
 
-        // GET: ProductController/Delete/5
+        [Authorize]
         public ActionResult Delete(int Id)
         {
             var model = db.GetProductById(Id);

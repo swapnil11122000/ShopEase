@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ECommWeb.Models.OrderItem>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<body style="background-color:#adb5bd;">
+   
+
+
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>You do not have order yet!</p>
+    }
+    else
+    {
+        @foreach (var Order in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                   <div class="card-body">
+                        <h5 class="card-title">@Order.Product.ProductName</h5>
+
+
+
+                        <h5>@Order.Product.ImgUrl</h5>
+                         <h5>$@Order.TotalPrice</h5>
+                         Quantity: @Order.Quantity<br />
+                       <p class="card-text">@Order.Product.ShortText</p>
+
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@Order.Product.ProductID" class="btn btn-dark">View Product Details</a><br/>
+                        Delivery Expected by @DateTime.Now.AddDays(2)
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+
+
+</body>
+

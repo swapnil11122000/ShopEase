@@ -7,15 +7,15 @@ namespace ECommWeb.Models
         [Key]
         public int AddressID { get; set; } 
 
-        [Required]
-        public EntityType EntityType { get; set; } 
+       
+        public string EntityType { get; set; } 
 
         [Required]
         public int EntityID { get; set; } 
 
-        [Required]
-        [EnumDataType(typeof(AddressType))]
-        public AddressType AddressType { get; set; } 
+        
+       
+        public string AddressType { get; set; } 
 
         [Required]
         [MaxLength(100)]
@@ -37,16 +37,5 @@ namespace ECommWeb.Models
         [MaxLength(100)]
         public string Country { get; set; }
     }
-    public enum EntityType
-    {
-        User,
-        Vendor
-    }
-
-    public enum AddressType
-    {
-        Shipping,
-        Billing,
-        Other
-    }
+    
 }

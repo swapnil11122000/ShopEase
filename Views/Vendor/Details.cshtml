@@ -8,51 +8,78 @@
 
 
 <div>
-    <h4>Vendor</h4>
-    <hr />
+        <div class="d-flex justify-content-between align-items-center">
+            <h4>Vendor Details and their all products.</h4>
+            <div>
+               
+                <a class="btn btn-dark" asp-controller="Home" asp-action="Index">Back to List</a>
+            </div>
+        </div>
+        <hr />
+
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VendorID)
+           Vendor Name:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ContactPerson)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressID)
+          Address:
         </dt>
         <dd class = "col-sm-10">
                 @Html.DisplayFor(model => model.AddressID)
         </dd>
+      
         <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.AddressID)
-        </dt>
-        <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.AddressID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+          Email:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
+           Phone:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Phone)
         </dd>
+            <dt class="col-sm-2">
+                GSTIN
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GSTINID)
+            </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+           Status:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
         </dd>
     </dl>
 </div>
-<div>
-   @*  <a asp-action="Edit" asp-route-id="@Model?.Vendor_ID">Edit</a> | *@
-        <a class="btn btn-dark" asp-controller="Home" asp-action="Index">Back to List</a>
-</div>
+    <hr />
 
-   @*  @Html.Partial("_PartialGrid", ViewBag.PartialGridData) *@
+    @if (Model.Product == null || !Model.Product.Any())
+    {
+        <p>No products found for this vendor.</p>
+    }
+    else
+    {
+        @foreach (var product in Model.Product)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    @*  <img src="@product.ImgUrl" class="card-img-top" alt="Product Image">
+            *@ <div class="card-body">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="card-text">@product.ShortText</p>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductID" class="btn btn-dark">View Details</a>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+
 </body>

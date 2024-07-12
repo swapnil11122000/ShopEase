@@ -1,44 +1,32 @@
--- Address
 SELECT * FROM Address;
-
--- Cart
 SELECT * FROM Cart;
-
--- Category
 SELECT * FROM Category;
-
--- Discount
 SELECT * FROM Discount;
-
--- Inventory
 SELECT * FROM Inventory;
-
--- Order
 SELECT * FROM [Order];
-
--- OrderItem
 SELECT * FROM OrderItem;
-
--- Payment
 SELECT * FROM Payment;
-
--- Product
 SELECT * FROM Product;
-
--- Profile
 SELECT * FROM Profile;
-
--- User
 SELECT * FROM [User];
-
--- Vendor
 SELECT * FROM Vendor;
-
--- Shipping
 SELECT * FROM Shipping;
-
--- Review
 SELECT * FROM Review;
-
--- Return
 SELECT * FROM [Return];
+
+
+TRUNCATE TABLE [Address];
+TRUNCATE TABLE Cart;
+TRUNCATE TABLE Category;
+TRUNCATE TABLE Discount;
+TRUNCATE TABLE Inventory;
+TRUNCATE TABLE [Order];
+TRUNCATE TABLE OrderItem;
+TRUNCATE TABLE Payment;
+TRUNCATE TABLE Product;
+TRUNCATE TABLE Profile;
+TRUNCATE TABLE [User];
+TRUNCATE TABLE Vendor;
+TRUNCATE TABLE Shipping;
+TRUNCATE TABLE Review;
+TRUNCATE TABLE [Return];

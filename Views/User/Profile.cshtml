@@ -3,106 +3,111 @@
 @{
     ViewData["Title"] = "Add New User";
 }
+<body style="background-color:#adb5bd;">
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2>My Profile</h2>
-                    <div>
-                        <form asp-action="Create" method="post" enctype="multipart/form-data" class="d-inline">
-                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        </form>
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- FirstName -->
-                                <div class="form-group">
-                                    <label asp-for="FirstName">First Name</label>
-                                    <input asp-for="FirstName" class="form-control" />
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                                </div>
 
-                                <!-- LastName -->
-                                <div class="form-group">
-                                    <label asp-for="LastName">Last Name</label>
-                                    <input asp-for="LastName" class="form-control" />
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
-                                </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>My Profile</h2>
+                            <div>
 
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <label asp-for="Email">Email</label>
-                                    <input asp-for="Email" class="form-control" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
+                                <button type="submit" class="btn btn-dark mr-2">Update Profile</button>
 
-                                <!-- Password -->
-                                <div class="form-group">
-                                    <label asp-for="Password">Password</label>
-                                    <input asp-for="Password" type="password" class="form-control" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-
-                                <!-- Mobile -->
-                                <div class="form-group">
-                                    <label asp-for="Mobile">Mobile</label>
-                                    <input asp-for="Mobile" class="form-control" />
-                                    <span asp-validation-for="Mobile" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <!-- Status -->
-                                <div class="form-group">
-                                    <label asp-for="Status">Status</label>
-                                    <div>
-                                        <input type="checkbox" asp-for="Status" />
-                                        <label class="form-check-label ml-2">@Html.DisplayNameFor(model => model.Status)</label>
-                                    </div>
-                                    <span asp-validation-for="Status" class="text-danger"></span>
-                                </div>
-
-                                <!-- Gender -->
-                                <div class="form-group">
-                                    <label asp-for="Gender">Gender</label>
-                                    <select asp-for="Gender" class="form-control">
-                                        <option value="">-- Select Gender --</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    <span asp-validation-for="Gender" class="text-danger"></span>
-                                </div>
-
-                                <!-- CreatedDate -->
-                                <div class="form-group">
-                                    <label asp-for="CreatedDate">Created Date</label>
-                                    <input asp-for="CreatedDate" class="form-control" disabled />
-                                </div>
-
-                                <!-- UpdatedDate -->
-                                <div class="form-group">
-                                    <label asp-for="UpdatedDate">Updated Date</label>
-                                    <input asp-for="UpdatedDate" class="form-control" disabled />
-                                </div>
-
-                                <!-- LastLogin -->
-                                <div class="form-group">
-                                    <label asp-for="LastLogin">Last Login</label>
-                                    <input asp-for="LastLogin" class="form-control" disabled />
-                                </div>
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
                             </div>
                         </div>
-                    </form>
-                </div>
-             
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                 
+                                    <div class="form-group">
+                                        <label asp-for="FirstName">First Name</label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+
+                                 
+                                    <div class="form-group">
+                                        <label asp-for="LastName">Last Name</label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+
+                                   
+                                    <div class="form-group">
+                                        <label asp-for="Email">Email</label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                 
+                                    <div class="form-group">
+                                        <label asp-for="Password">Password</label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                   
+                                    <div class="form-group">
+                                        <label asp-for="Mobile">Mobile</label>
+                                        <input asp-for="Mobile" class="form-control" />
+                                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   
+                                    <div class="form-group">
+                                     
+                                        <div>
+                                            <input type="checkbox" asp-for="Status" />
+                                            <label class="form-check-label ml-2">@Html.DisplayNameFor(model => model.Status)</label>
+                                        </div>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+
+                                 
+                                    <div class="form-group">
+                                        <label asp-for="Gender">Gender</label>
+                                        <select asp-for="Gender" class="form-control">
+                                            <option value="">-- Select Gender --</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+
+                                  
+                               @*      <div class="form-group">
+                                        <label asp-for="CreatedDate">Created Date</label>
+                                        <input asp-for="CreatedDate" class="form-control" disabled />
+                                    </div>
+
+                                  
+                                    <div class="form-group">
+                                        <label asp-for="UpdatedDate">Updated Date</label>
+                                        <input asp-for="UpdatedDate" class="form-control" disabled />
+                                    </div>
+
+                                  
+                                    <div class="form-group">
+                                        <label asp-for="LastLogin">Last Login</label>
+                                        <input asp-for="LastLogin" class="form-control" disabled />
+                                    </div> *@
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+</body>

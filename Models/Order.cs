@@ -20,7 +20,7 @@ namespace ECommWeb.Models
         public decimal TotalAmount { get; set; } 
 
         [Required]
-        public OrderStatus Status { get; set; } 
+        public string Status { get; set; } 
 
      
         public int? PaymentID { get; set; }
@@ -33,12 +33,5 @@ namespace ECommWeb.Models
         public Payment Payment { get; set; }
         public Shipping Shipping { get; set; }
     }
-    public enum OrderStatus
-    {
-        pending,
-        confirmed,
-        shipped,
-        delivered,
-        cancelled
-    }
+   
 }

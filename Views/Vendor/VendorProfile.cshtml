@@ -6,124 +6,132 @@
 
 <body style="background-color:#adb5bd;">
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col">
-            @if (Model == null)
-            {
-                <h3>Vendor Not Found</h3>
-                <p>The vendor you requested does not exist.</p>
-            }
-            else
-            {
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2>My Profile</h2>
-                        <div>
-                         
-                            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <!-- Company Name -->
-                                    <div class="form-group">
-                                        <label asp-for="CompanyName">Company Name</label>
-                                        <input asp-for="CompanyName" class="form-control" />
-                                        <span asp-validation-for="CompanyName" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Contact Person -->
-                                    <div class="form-group">
-                                        <label asp-for="ContactPerson">Contact Person</label>
-                                        <input asp-for="ContactPerson" class="form-control" />
-                                        <span asp-validation-for="ContactPerson" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label asp-for="Email">Email</label>
-                                        <input asp-for="Email" class="form-control" />
-                                        <span asp-validation-for="Email" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Password -->
-                                    <div class="form-group">
-                                        <label asp-for="Password">Password</label>
-                                        <input asp-for="Password" class="form-control" readonly />
-                                        <span asp-validation-for="Password" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Phone -->
-                                    <div class="form-group">
-                                        <label asp-for="Phone">Phone</label>
-                                        <input asp-for="Phone" class="form-control" />
-                                        <span asp-validation-for="Phone" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Address ID -->
-                                    <div class="form-group">
-                                        <label asp-for="AddressID">Address ID</label>
-                                        <input asp-for="AddressID" class="form-control" />
-                                        <span asp-validation-for="AddressID" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <!-- GSTIN ID -->
-                                    <div class="form-group">
-                                        <label asp-for="GSTINID">GSTIN ID</label>
-                                        <input asp-for="GSTINID" class="form-control" />
-                                        <span asp-validation-for="GSTINID" class="text-danger"></span>
-                                    </div>
-
-                                    <!-- Created Date -->
-                                    <div class="form-group">
-                                        <label asp-for="CreatedDate">Created Date</label>
-                                        <input asp-for="CreatedDate" class="form-control" disabled />
-                                    </div>
-
-                                    <!-- Updated Date -->
-                                    <div class="form-group">
-                                        <label asp-for="UpdatedDate">Updated Date</label>
-                                        <input asp-for="UpdatedDate" class="form-control" disabled />
-                                    </div>
-
-                                  
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                @if (Model == null)
+                {
+                    <h3>Vendor Not Found</h3>
+                    <p>The vendor you requested does not exist.</p>
+                }
+                else
+                {
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h2>My Profile</h2>
+                                <div>
+                                    <button type="submit" class="btn btn-dark mr-2">Update Profile</button>
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            }
-            <br/>
-            <br/>
-            @if (Model.Product == null || !Model.Product.Any())
-            {
-                <p>No products found for this vendor.</p>
-            }
-            else
-            {
-                @foreach (var product in Model.Product)
-                {
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            @*  <img src="@product.ImgUrl" class="card-img-top" alt="Product Image">
-                    *@ <div class="card-body">
-                                <h5 class="card-title">@product.ProductName</h5>
-                                <p class="card-text">@product.ShortText</p>
-                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductID" class="btn btn-primary">View Details</a>
-                                  
-                                </div>
-                        </div>
-                    </div>
-                    <br />
-                }
-            }
+                            <div class="card-body">
 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="display:none">
+                                            <label asp-for="VendorID">Company Name</label>
+                                            <input asp-for="VendorID" class="form-control" />
+                                            <span asp-validation-for="VendorID" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="CompanyName">Company Name</label>
+                                            <input asp-for="CompanyName" class="form-control" />
+                                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label asp-for="ContactPerson">Contact Person</label>
+                                            <input asp-for="ContactPerson" class="form-control" />
+                                            <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label asp-for="Email">Email</label>
+                                            <input asp-for="Email" class="form-control" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label asp-for="Password">Password</label>
+                                            <input asp-for="Password" class="form-control" readonly />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Phone">Phone</label>
+                                            <input asp-for="Phone" class="form-control" />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label asp-for="AddressID">Address ID</label>
+                                            <input asp-for="AddressID" class="form-control" />
+                                            <span asp-validation-for="AddressID" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label asp-for="GSTINID">GSTIN ID</label>
+                                            <input asp-for="GSTINID" class="form-control" />
+                                            <span asp-validation-for="GSTINID" class="text-danger"></span>
+                                        </div>
+
+
+                                        @*   <div class="form-group">
+                                    <label asp-for="CreatedDate">Created Date</label>
+                                    <input asp-for="CreatedDate" class="form-control" disabled />
+                                    </div> *@
+
+
+                                        @*    <div class="form-group">
+                                    <label asp-for="UpdatedDate">Updated Date</label>
+                                    <input asp-for="UpdatedDate" class="form-control" disabled />
+                                    </div> *@
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                }
+                <br />
+                <br />
+                @if (Model.Product == null || !Model.Product.Any())
+                {
+                    <p>No products found for this vendor.</p>
+                }
+                else
+                {
+                    @foreach (var product in Model.Product)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                @*  <img src="@product.ImgUrl" class="card-img-top" alt="Product Image">
+                        *@ <div class="card-body">
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p class="card-text">@product.ShortText</p>
+                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductID" class="btn btn-dark">View Details</a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+
+            </div>
         </div>
     </div>
-</div>
 </body>

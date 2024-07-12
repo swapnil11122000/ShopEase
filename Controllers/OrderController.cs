@@ -1,5 +1,6 @@
 ﻿using ECommWeb.Entities;
 using ECommWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommWeb.Controllers
@@ -18,14 +19,30 @@ namespace ECommWeb.Controllers
             return View();
         }
 
-
-        public IActionResult PlaceOrder(OrderItem orderItem)
+        [Authorize]
+        public IActionResult PlaceOrder(Product Product)
         {
+            int UserID = (int)HttpContext.Session.GetInt32("UserId");
 
-            // int a = db.UpdateVendor(Vendor);
+            int OrderID = db.AddOrder(Product, UserID);
+
+            int OrderItemID = db.AddOrderItem(Product, OrderID);
+            int Result = db.SubtractQuantity(Product.OrderItem.Quantity, Product);
 
 
-            return RedirectToAction("Index", "Home");
+            TempData["SuccessMessage"] = "Order Placed Successfully";
+            return RedirectToAction("MyOrders", "Order");
         }
+        [Authorize]
+        public IActionResult MyOrders()
+        {
+            int UserID= (int)HttpContext.Session.GetInt32("UserId");
+            var MyOrders = db.GetMyOrders(UserID);
+
+
+            return View("~/Views/Order/MyOrders.cshtml",MyOrders);
+        }
+
     }
 }
+

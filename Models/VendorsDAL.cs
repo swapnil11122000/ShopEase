@@ -72,6 +72,7 @@ namespace ECommWeb.Models
                 res.CreatedDate=DateTime.Now;
                 res.UpdatedDate=DateTime.Now;
                 res.Status= Vendor.Status;
+              
 
                 result = _context.SaveChanges();
             }

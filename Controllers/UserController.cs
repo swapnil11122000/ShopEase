@@ -97,7 +97,7 @@ namespace ECommWeb.Controllers
                     List<Claim> claims = new List<Claim>() {
                      new Claim(ClaimTypes.NameIdentifier,Vendor.Email),
                      new Claim("Name", dt.Rows[0]["ContactPerson"].ToString()),
-                     new Claim("Role","Supplier")
+                     new Claim("Role","1")
                 };
 
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
@@ -199,7 +199,10 @@ namespace ECommWeb.Controllers
 
         public ActionResult Profile()
         {
-            return View("Profile");
+            int UserID= (int)HttpContext.Session.GetInt32("UserId");
+            var User = db.GetUserByID(UserID);
+
+            return View("Profile",User);
         }
 
 

@@ -47,7 +47,7 @@ namespace ECommWeb.Models
        
         public User GetUserByID(int id)
         {
-            User user = null; // Initialize as null to handle cases where user is not found
+            User user = null; 
 
            
                 string qry = "SELECT * FROM [User] WHERE UserID = @UserID";
@@ -59,7 +59,7 @@ namespace ECommWeb.Models
 
                 if (reader.HasRows)
                 {
-                    reader.Read(); // Read the first (and presumably only) row
+                    reader.Read();
 
                     user = new User
                     {
@@ -271,7 +271,7 @@ namespace ECommWeb.Models
                     foreach (DataColumn col in dataTable.Columns)
                     {
                         object value = dr[col.ColumnName];
-                        if (value == DBNull.Value || string.IsNullOrWhiteSpace(value.ToString()) || value.ToString() == "0")
+                        if (value == DBNull.Value || string.IsNullOrWhiteSpace(value.ToString()))
                         {
                             Present = false;
 
@@ -300,7 +300,7 @@ namespace ECommWeb.Models
                     foreach (DataColumn col in dataTable.Columns)
                     {
                         object value = dr[col.ColumnName];
-                        if (value == DBNull.Value || string.IsNullOrWhiteSpace(value.ToString()) || value.ToString() == "0")
+                        if (value == DBNull.Value || string.IsNullOrWhiteSpace(value.ToString()))
                         {
                             Present = false;
 
@@ -364,7 +364,7 @@ namespace ECommWeb.Models
         {
             int result = 0;
             string qry = "UPDATE [User] SET FirstName=@FirstName, LastName=@LastName, Email=@Email, Password=@Password, " +
-                         "Mobile=@Mobile, Gender=@Gender, Status=@Status, UpdatedDate=@UpdatedDate, ProfileID=@ProfileID, AddressID=@AddressID " +
+                         "Mobile=@Mobile, Gender=@Gender, Status=@Status, UpdatedDate=@UpdatedDate,CreatedDate=@CreatedDate, ProfileID=@ProfileID, AddressID=@AddressID " +
                          "WHERE UserID=@UserID";
 
             
@@ -376,7 +376,8 @@ namespace ECommWeb.Models
                 cmd.Parameters.AddWithValue("@Mobile", user.Mobile);
                 cmd.Parameters.AddWithValue("@Gender", user.Gender);
                 cmd.Parameters.AddWithValue("@Status", user.Status);
-                cmd.Parameters.AddWithValue("@UpdatedDate", DateTime.Now); // Assuming you want to update the UpdatedDate
+                cmd.Parameters.AddWithValue("@UpdatedDate", DateTime.Now);
+                  cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@ProfileID", user.ProfileID);
                 cmd.Parameters.AddWithValue("@AddressID", user.AddressID);
                 cmd.Parameters.AddWithValue("@UserID", user.UserID);

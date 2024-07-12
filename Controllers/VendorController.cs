@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommWeb.Controllers
 {
-  
+    [Authorize]
     public class VendorController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +18,7 @@ namespace ECommWeb.Controllers
             this._context= context;
             db=new VendorDAL(_context);
         }
+        [Authorize]
         public  IActionResult Index()
         {
             List<Vendor> Vendor = db.GetAllVendor(); ;
@@ -25,14 +26,16 @@ namespace ECommWeb.Controllers
            
             return View(Vendor);
         }
+        [Authorize]
         public IActionResult Details(int id)
         {
-
-            var Vendor = GetVendorById(id);
-            var partialGridData = db.GetVendorProducts();
-            ViewBag.PartialGridData = partialGridData;
+            var Vendor = db.GetVend(id);
+            //var Vendor = GetVendorById(id);
+            //var partialGridData = db.GetVendorProducts();
+            //ViewBag.PartialGridData = partialGridData;
             return View(Vendor);
         }
+        [Authorize]
         public Vendor GetVendorById(int Id)
         {
             var result = _context.Vendor.Where(x => x.VendorID == Id).FirstOrDefault();
@@ -116,14 +119,17 @@ namespace ECommWeb.Controllers
         {
             var categories = new List<SelectListItem>
     {
-        new SelectListItem { Value = "1", Text = "Clothing" },
-        new SelectListItem { Value = "2", Text = "Electronics" },
-        new SelectListItem { Value = "3", Text = "Automobile" },
-         new SelectListItem { Value = "4", Text = "Fashion" },
-          new SelectListItem { Value = "5", Text = "Appliances" },
-           new SelectListItem { Value = "6", Text = "Grocery" },
-            new SelectListItem { Value = "7", Text = "Home & Furniture" },
-             new SelectListItem { Value = "8", Text = "Toys" },
+        new SelectListItem { Value = "1", Text = "Electronics" },
+        new SelectListItem { Value = "2", Text = "Clothing" },
+        new SelectListItem { Value = "3", Text = "Books" },
+         new SelectListItem { Value = "4", Text = "Home Appliances" },
+          new SelectListItem { Value = "5", Text = "Toys" },
+           new SelectListItem { Value = "6", Text = "Sports" },
+            new SelectListItem { Value = "7", Text = "Beauty" },
+             new SelectListItem { Value = "8", Text = "Furniture" },
+             new SelectListItem { Value = "9", Text = "Food" },
+             new SelectListItem { Value = "10", Text = "Garden" },
+            
 
     };
 

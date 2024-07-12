@@ -1,4 +1,5 @@
 ﻿using ECommWeb.Entities;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -21,8 +22,25 @@ namespace ECommWeb.Models
       
         public Product GetProductById(int Id)
         {
-            var result = db.Products.Where(x => x.ProductID == Id).FirstOrDefault();
-            return result;
+            var query = from product in db.Products
+                        join category in db.Category on product.CategoryID equals category.CategoryID
+                        where product.ProductID == Id
+                        select new Product
+                        {
+                            ProductID = product.ProductID,
+                            ProductName = product.ProductName,
+                            Description = product.Description,
+                            UnitPrice = product.UnitPrice,
+                            Category = category,
+                            ShortText=product.ShortText,
+                            ImgUrl=product.ImgUrl,
+                            StockQuantity=product.StockQuantity,
+                            BarCode=product.BarCode,
+                            VendorID=product.VendorID,
+                            
+                        };
+
+            return query.FirstOrDefault();
         }
         public List<Product> SearchProductByName(string product)
         {

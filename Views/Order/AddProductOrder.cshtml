@@ -13,7 +13,7 @@
                             <h2>Confirm Order</h2>
                             <div>
                               
-                                    <button type="submit" class="btn btn-dark mr-2">Add To Cart</button>
+                                    <button type="submit" class="btn btn-dark mr-2">Place Order</button>
                                
                                 <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Back to Home</a>
                             </div>
@@ -22,6 +22,11 @@
 
                             <div class="row">
                                 <div class="col-md-6">
+                                    <div class="form-group" style="display:none">
+                                        <label asp-for="ProductID">Product Name</label>
+                                        <input asp-for="ProductID" class="form-control" readonly />
+                                        <span asp-validation-for="ProductID" class="text-danger"></span>
+                                    </div>
                                     <!-- Product Name -->
                                     <div class="form-group">
                                         <label asp-for="ProductName">Product Name</label>
@@ -108,7 +113,7 @@
                 var remainingQuantity = stockQuantity - orderQuantity; 
 
                
-                $('#StockQuantity').val(remainingQuantity);
+                //$('#StockQuantity').val(remainingQuantity);
             }
 
           
